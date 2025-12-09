@@ -1,0 +1,17 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node modules (if you use npm)
+node_modules/
+package-lock.json
+
+# Build files
+dist/
+build/

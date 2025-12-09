@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Flip Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Coin Flip Simulator</h1>
+        <button id="flipBtn" class="flip-button">Flip 3 Coins (6 Times)</button>
+        
+        <div id="results" class="results-section" style="display: none;">
+            <h2>Results</h2>
+            <div id="flipsContainer" class="flips-container"></div>
+        </div>
+        
+        <div id="chartSection" class="chart-section" style="display: none;">
+            <h2>Heads vs Tails Statistics</h2>
+            <canvas id="statisticsChart"></canvas>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
