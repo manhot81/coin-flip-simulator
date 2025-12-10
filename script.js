@@ -14,13 +14,29 @@ function convertResult(flip) {
     else if (headsCount === 2 && tailsCount === 1) {
         return '- -';
     }
-    // Rule c: 3 head -> --- O
+    // Rule c: 3 head -> ---O
     else if (headsCount === 3) {
-        return '--- O';
+        return '---O';
     }
     // Rule d: 3 tail -> - -X
     else if (tailsCount === 3) {
         return '- -X';
+    }
+}
+
+// Transform the converted result to final result based on rules
+function transformResult(convertedResult) {
+    // Rule 1: If the result is ---O, change it to - -
+    if (convertedResult === '---O') {
+        return '- -';
+    }
+    // Rule 2: If the result is - -X, change it to ---
+    else if (convertedResult === '- -X') {
+        return '---';
+    }
+    // Rule 3: Otherwise, keep the same
+    else {
+        return convertedResult;
     }
 }
 
@@ -66,10 +82,12 @@ function displayResults(flips) {
     const resultsSection = document.getElementById('results');
     const flipsContainer = document.getElementById('flipsContainer');
     const convertedContainer = document.getElementById('convertedContainer');
+    const finalContainer = document.getElementById('finalContainer');
     
     // Clear previous results
     flipsContainer.innerHTML = '';
     convertedContainer.innerHTML = '';
+    finalContainer.innerHTML = '';
     
     // Display each flip result
     flips.forEach((flip, index) => {
@@ -86,11 +104,19 @@ function displayResults(flips) {
         flipDiv.innerHTML = flipHtml;
         flipsContainer.appendChild(flipDiv);
 
-        // Right column: Converted Results
+        // Middle column: Converted Results
+        const convertedResult = convertResult(flip);
         const convertedDiv = document.createElement('div');
         convertedDiv.className = 'converted-result';
-        convertedDiv.textContent = convertResult(flip);
+        convertedDiv.textContent = convertedResult;
         convertedContainer.appendChild(convertedDiv);
+
+        // Right column: Final Results
+        const finalResult = transformResult(convertedResult);
+        const finalDiv = document.createElement('div');
+        finalDiv.className = 'final-result';
+        finalDiv.textContent = finalResult;
+        finalContainer.appendChild(finalDiv);
     });
     
     resultsSection.style.display = 'block';
