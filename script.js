@@ -1,6 +1,29 @@
 // Initialize chart variable
 let statisticsChart = null;
 
+// Convert flip result to display string based on rules
+function convertResult(flip) {
+    const headsCount = flip.filter(coin => coin === 'H').length;
+    const tailsCount = flip.filter(coin => coin === 'T').length;
+
+    // Rule a: 2 tail 1 head -> ---
+    if (tailsCount === 2 && headsCount === 1) {
+        return '---';
+    }
+    // Rule b: 2 head 1 tail -> - -
+    else if (headsCount === 2 && tailsCount === 1) {
+        return '- -';
+    }
+    // Rule c: 3 head -> --- O
+    else if (headsCount === 3) {
+        return '--- O';
+    }
+    // Rule d: 3 tail -> - -X
+    else if (tailsCount === 3) {
+        return '- -X';
+    }
+}
+
 // Flip a single coin (returns 'H' for Heads or 'T' for Tails)
 function flipCoin() {
     return Math.random() < 0.5 ? 'H' : 'T';
@@ -42,24 +65,32 @@ function countResults(flips) {
 function displayResults(flips) {
     const resultsSection = document.getElementById('results');
     const flipsContainer = document.getElementById('flipsContainer');
+    const convertedContainer = document.getElementById('convertedContainer');
     
     // Clear previous results
     flipsContainer.innerHTML = '';
+    convertedContainer.innerHTML = '';
     
     // Display each flip result
     flips.forEach((flip, index) => {
+        // Left column: Flip Results
         const flipDiv = document.createElement('div');
         flipDiv.className = 'flip-result';
         
         let flipHtml = `<h3>Flip ${index + 1}</h3>`;
         flip.forEach((coin) => {
             const coinClass = coin === 'H' ? 'heads' : 'tails';
-            const coinLabel = coin === 'H' ? 'Heads' : 'Tails';
             flipHtml += `<span class="coin ${coinClass}">${coin}</span>`;
         });
         
         flipDiv.innerHTML = flipHtml;
         flipsContainer.appendChild(flipDiv);
+
+        // Right column: Converted Results
+        const convertedDiv = document.createElement('div');
+        convertedDiv.className = 'converted-result';
+        convertedDiv.textContent = convertResult(flip);
+        convertedContainer.appendChild(convertedDiv);
     });
     
     resultsSection.style.display = 'block';

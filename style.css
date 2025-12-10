@@ -65,7 +65,36 @@ h2 {
     margin-top: 30px;
 }
 
+.results-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.results-column {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+}
+
+.results-column h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
 .flips-container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.converted-container {
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
@@ -113,6 +142,22 @@ h2 {
 
 .coin.tails {
     background: #FF9800;
+}
+
+.converted-result {
+    background: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #764ba2;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    line-height: 1.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
 }
 
 .chart-section {
