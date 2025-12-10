@@ -1,6 +1,21 @@
 // Initialize chart variable
 let statisticsChart = null;
 
+// Hex dictionary for result lookup
+const hexDict = {
+    '000000': 2, '100000': 23, '010000': 8, '110000': 20, '001000': 45, '101000': 35,
+    '011000': 41, '111000': 12, '000001': 24, '100001': 27, '010001': 3, '110001': 42,
+    '001001': 51, '101001': 21, '011001': 17, '111001': 25, '000010': 7, '100010': 4,
+    '010010': 29, '110010': 59, '001010': 40, '101010': 64, '011010': 47, '111010': 6,
+    '000011': 19, '100011': 41, '010011': 60, '110011': 61, '001011': 54, '101011': 38,
+    '011011': 58, '111011': 10, '000100': 15, '100100': 52, '010100': 39, '110100': 53,
+    '001100': 62, '101100': 56, '011100': 31, '111100': 33, '000101': 36, '100101': 22,
+    '010101': 63, '110101': 37, '001101': 55, '101101': 30, '011101': 49, '111101': 13,
+    '000110': 46, '100110': 18, '010110': 48, '110110': 57, '001110': 32, '101110': 50,
+    '011110': 28, '111110': 44, '000111': 11, '100111': 26, '010111': 5, '110111': 9,
+    '001111': 34, '101111': 14, '011111': 43, '111111': 1
+};
+
 // Convert flip result to display string based on rules
 function convertResult(flip) {
     const headsCount = flip.filter(coin => coin === 'H').length;
@@ -38,6 +53,38 @@ function transformResult(convertedResult) {
     else {
         return convertedResult;
     }
+}
+
+// Convert a single result to binary (0 or 1)
+function resultToBinary(result) {
+    // --- or ---O = 1
+    if (result === '---' || result === '---O') {
+        return '1';
+    }
+    // - - or - -X = 0
+    else if (result === '- -' || result === '- -X') {
+        return '0';
+    }
+    return '0'; // default
+}
+
+// Calculate binary conversion for upper and lower groups
+function calculateBinaryGroups(finalResults) {
+    // Upper 3 results (indices 5, 4, 3) - from flip 6, 5, 4
+    const upperGroup = [finalResults[5], finalResults[4], finalResults[3]];
+    // Lower 3 results (indices 2, 1, 0) - from flip 3, 2, 1
+    const lowerGroup = [finalResults[2], finalResults[1], finalResults[0]];
+
+    const upperBinary = upperGroup.map(result => resultToBinary(result)).join('');
+    const lowerBinary = lowerGroup.map(result => resultToBinary(result)).join('');
+
+    return { upper: upperBinary, lower: lowerBinary };
+}
+
+// Look up result number from hex dictionary using combined binary
+function lookupResultNumber(upperBinary, lowerBinary) {
+    const combinedBinary = upperBinary + lowerBinary;
+    return hexDict[combinedBinary] || 'N/A';
 }
 
 // Flip a single coin (returns 'H' for Heads or 'T' for Tails)
@@ -89,6 +136,9 @@ function displayResults(flips) {
     convertedContainer.innerHTML = '';
     finalContainer.innerHTML = '';
     
+    const convertedResults = []; // Store converted results
+    const finalResults = []; // Store final results
+    
     // Display each flip result
     flips.forEach((flip, index) => {
         // Left column: Flip Results
@@ -106,6 +156,7 @@ function displayResults(flips) {
 
         // Middle column: Converted Results
         const convertedResult = convertResult(flip);
+        convertedResults.push(convertedResult);
         const convertedDiv = document.createElement('div');
         convertedDiv.className = 'converted-result';
         convertedDiv.textContent = convertedResult;
@@ -113,6 +164,7 @@ function displayResults(flips) {
 
         // Right column: Final Results
         const finalResult = transformResult(convertedResult);
+        finalResults.push(finalResult);
         const finalDiv = document.createElement('div');
         finalDiv.className = 'final-result';
         finalDiv.textContent = finalResult;
@@ -120,6 +172,9 @@ function displayResults(flips) {
     });
     
     resultsSection.style.display = 'block';
+    
+    // Display binary conversion summary for both columns
+    displayBinarySummary(convertedResults, finalResults);
 }
 
 // Create or update the bar chart
@@ -174,6 +229,38 @@ function displayChart(counts) {
     });
     
     document.getElementById('chartSection').style.display = 'block';
+}
+
+// Display binary conversion summary
+function displayBinarySummary(convertedResults, finalResults) {
+    const summarySection = document.getElementById('summarySection');
+    const convertedUpperBinaryDiv = document.getElementById('convertedUpperBinary');
+    const convertedLowerBinaryDiv = document.getElementById('convertedLowerBinary');
+    const convertedCombinedDiv = document.getElementById('convertedCombined');
+    const convertedResultNumberDiv = document.getElementById('convertedResultNumber');
+    const finalUpperBinaryDiv = document.getElementById('finalUpperBinary');
+    const finalLowerBinaryDiv = document.getElementById('finalLowerBinary');
+    const finalCombinedDiv = document.getElementById('finalCombined');
+    const finalResultNumberDiv = document.getElementById('finalResultNumber');
+    
+    const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
+    const finalBinaryGroups = calculateBinaryGroups(finalResults);
+    
+    // Display converted results
+    convertedUpperBinaryDiv.textContent = convertedBinaryGroups.upper;
+    convertedLowerBinaryDiv.textContent = convertedBinaryGroups.lower;
+    const convertedCombined = convertedBinaryGroups.upper + convertedBinaryGroups.lower;
+    convertedCombinedDiv.textContent = convertedCombined;
+    convertedResultNumberDiv.textContent = lookupResultNumber(convertedBinaryGroups.upper, convertedBinaryGroups.lower);
+    
+    // Display final results
+    finalUpperBinaryDiv.textContent = finalBinaryGroups.upper;
+    finalLowerBinaryDiv.textContent = finalBinaryGroups.lower;
+    const finalCombined = finalBinaryGroups.upper + finalBinaryGroups.lower;
+    finalCombinedDiv.textContent = finalCombined;
+    finalResultNumberDiv.textContent = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
+    
+    summarySection.style.display = 'block';
 }
 
 // Main function to handle button click
