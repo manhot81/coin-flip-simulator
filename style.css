@@ -225,6 +225,26 @@ canvas {
     padding-bottom: 10px;
 }
 
+.summary-column:nth-child(1) {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+}
+
+.summary-column:nth-child(1) h3 {
+    color: #856404;
+    border-bottom: 2px solid #ffc107;
+}
+
+.summary-column:nth-child(2) {
+    background: #d1ecf1;
+    border: 2px solid #17a2b8;
+}
+
+.summary-column:nth-child(2) h3 {
+    color: #0c5460;
+    border-bottom: 2px solid #17a2b8;
+}
+
 .summary-subgroup {
     margin-bottom: 20px;
     text-align: center;
@@ -245,9 +265,16 @@ canvas {
     font-size: 28px;
     font-weight: bold;
     font-family: 'Courier New', monospace;
-    color: #764ba2;
     margin: 8px 0;
     letter-spacing: 15px;
+}
+
+.summary-column:nth-child(1) .binary-result {
+    color: #856404;
+}
+
+.summary-column:nth-child(2) .binary-result {
+    color: #0c5460;
 }
 
 .lookup-result {
@@ -268,8 +295,15 @@ canvas {
 .result-number {
     font-size: 36px;
     font-weight: bold;
-    color: #764ba2;
     margin: 10px 0 0 0;
+}
+
+.summary-column:nth-child(1) .result-number {
+    color: #856404;
+}
+
+.summary-column:nth-child(2) .result-number {
+    color: #0c5460;
 }
 
 .table-section {
