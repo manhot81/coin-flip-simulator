@@ -97,6 +97,23 @@ const ichingData = {
     ]
 };
 
+// Create hexagram index
+const hexagramById = {};
+ichingData.hexagrams.forEach(hex => {
+    hexagramById[hex.id] = hex;
+});
+
+// Create trigram index maps from embedded data
+const trigramByBinary = {};
+const trigramById = {};
+const trigramByChar = {}
+
+ichingData.trigrams.forEach(trigram => {
+    trigramByBinary[trigram.binary] = trigram;
+    trigramById[trigram.id] = trigram;
+    trigramByChar[trigram.code] = trigram;
+});
+
 // Convert flip result to display string based on rules
 function convertResult(flip) {
     const headsCount = flip.filter(coin => coin === 'H').length;
@@ -184,22 +201,9 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
     const tableElement = document.getElementById('hexTable');
     tableElement.innerHTML = ''; // Clear previous table
     
-    // Create trigram index maps from embedded data
-    const trigramByBinary = {};
-    const trigramById = {};
-    const trigramByChar = {}
+
     
-    ichingData.trigrams.forEach(trigram => {
-        trigramByBinary[trigram.binary] = trigram;
-        trigramById[trigram.id] = trigram;
-        trigramByChar[trigram.code] = trigram;
-    });
-    
-    // Create hexagram index
-    const hexagramById = {};
-    ichingData.hexagrams.forEach(hex => {
-        hexagramById[hex.id] = hex;
-    });
+
     
     // Header sequence in binary for columns
     const colHeaders = ['111', '011', '101', '001', '110', '010', '100', '000'];
@@ -352,6 +356,7 @@ function displayResults(flips) {
     
     const convertedResults = []; // Store converted results
     const finalResults = []; // Store final results
+    const changedResults = [];
     
     // Store reference for highlighting
     window.highlightedBinaries = { converted: null, final: null };
@@ -374,6 +379,9 @@ function displayResults(flips) {
         // Middle column: Converted Results
         const convertedResult = convertResult(flip);
         convertedResults.push(convertedResult);
+        if (convertedResult === '---O' || convertedResult === '- -X') {
+            changedResults.push(index);
+        }
         const convertedDiv = document.createElement('div');
         convertedDiv.className = 'converted-result';
         convertedDiv.textContent = convertedResult;
@@ -459,35 +467,80 @@ function displayChart(counts) {
     
     document.getElementById('chartSection').style.display = 'block';
 }
+// Open modal and display hexagram details
+function openHexagramModal(hexagramId, hexagramName) {
+    const hexagram = ichingData.hexagrams.find(h => h.id === hexagramId);
+    if (!hexagram) return;
+    
+    document.getElementById('modalTitle').textContent = `${hexagram.name} (${hexagram.pinyin}) - #${hexagramId}`;
+    document.getElementById('modalBody').textContent = hexagram.ci;
+    document.getElementById('hexagramModal').style.display = 'flex';
+}
+
 
 // Display binary conversion summary
 function displayBinarySummary(convertedResults, finalResults) {
     const summarySection = document.getElementById('summarySection');
     const convertedUpperBinaryDiv = document.getElementById('convertedUpperBinary');
+    const convertedUpperBinarySymbolDiv = document.getElementById('convertedUpperBinarySymbol');
     const convertedLowerBinaryDiv = document.getElementById('convertedLowerBinary');
+    const convertedLowerBinarySymbolDiv = document.getElementById('convertedLowerBinarySymbol');
     const convertedCombinedDiv = document.getElementById('convertedCombined');
     const convertedResultNumberDiv = document.getElementById('convertedResultNumber');
+    const convertedResultNameDiv = document.getElementById('convertedResultName');
+    const convertedResultSymbolDiv = document.getElementById('convertedResultSymbol');
     const finalUpperBinaryDiv = document.getElementById('finalUpperBinary');
+    const finalUpperBinarySymbolDiv = document.getElementById('finalUpperBinarySymbol');
     const finalLowerBinaryDiv = document.getElementById('finalLowerBinary');
+    const finalLowerBinarySymbolDiv = document.getElementById('finalLowerBinarySymbol');
     const finalCombinedDiv = document.getElementById('finalCombined');
     const finalResultNumberDiv = document.getElementById('finalResultNumber');
+    const finalResultNameDiv = document.getElementById('finalResultName');
+    const finalResultSymbolDiv = document.getElementById('finalResultSymbol');
     
     const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
     const finalBinaryGroups = calculateBinaryGroups(finalResults);
     
+
     // Display converted results
+    trigram = trigramByBinary[convertedBinaryGroups.upper];    
     convertedUpperBinaryDiv.textContent = convertedBinaryGroups.upper;
+    convertedUpperBinarySymbolDiv.textContent = trigram.code;
+
+    trigram = trigramByBinary[convertedBinaryGroups.lower];        
     convertedLowerBinaryDiv.textContent = convertedBinaryGroups.lower;
+    convertedLowerBinarySymbolDiv.textContent = trigram.code;
+
     const convertedCombined = convertedBinaryGroups.upper + convertedBinaryGroups.lower;
     convertedCombinedDiv.textContent = convertedCombined;
-    convertedResultNumberDiv.textContent = lookupResultNumber(convertedBinaryGroups.upper, convertedBinaryGroups.lower);
+    const convertedResultNumber = lookupResultNumber(convertedBinaryGroups.upper, convertedBinaryGroups.lower);
+    convertedResultNumberDiv.textContent = convertedResultNumber;
+    convertedResultNameDiv.textContent = hexagramById[convertedResultNumber].symbol;
+    convertedResultNameDiv.addEventListener('click', function() {
+        openHexagramModal(convertedResultNumber, hexagramById[convertedResultNumber].name);
+    });            
+            
+    convertedResultSymbolDiv.textContent = String.fromCodePoint(0x4DC0 + convertedResultNumber - 1);
     
     // Display final results
+    trigram = trigramByBinary[finalBinaryGroups.upper];        
     finalUpperBinaryDiv.textContent = finalBinaryGroups.upper;
+    finalUpperBinarySymbolDiv.textContent = trigram.code;
+
+    trigram = trigramByBinary[finalBinaryGroups.lower];
     finalLowerBinaryDiv.textContent = finalBinaryGroups.lower;
+    finalLowerBinarySymbolDiv.textContent = trigram.code;
+
     const finalCombined = finalBinaryGroups.upper + finalBinaryGroups.lower;
     finalCombinedDiv.textContent = finalCombined;
-    finalResultNumberDiv.textContent = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
+    const finalResultNumber = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
+    finalResultNumberDiv.textContent = finalResultNumber;
+    finalResultNameDiv.textContent = hexagramById[finalResultNumber].symbol;
+    finalResultNameDiv.addEventListener('click', function() {
+        openHexagramModal(finalResultNumber, hexagramById[finalResultNumber].name);
+    });            
+    
+    finalResultSymbolDiv.textContent = String.fromCodePoint(0x4DC0 + finalResultNumber - 1);
     
     summarySection.style.display = 'block';
 }
@@ -505,15 +558,6 @@ function handleFlipButton() {
     document.getElementById('tableSection').style.display = 'block';
 }
 
-// Open modal and display hexagram details
-function openHexagramModal(hexagramId, hexagramName) {
-    const hexagram = ichingData.hexagrams.find(h => h.id === hexagramId);
-    if (!hexagram) return;
-    
-    document.getElementById('modalTitle').textContent = `${hexagram.name} (${hexagram.pinyin}) - #${hexagramId}`;
-    document.getElementById('modalBody').textContent = hexagram.ci;
-    document.getElementById('hexagramModal').style.display = 'flex';
-}
 
 // Close modal
 function closeHexagramModal() {

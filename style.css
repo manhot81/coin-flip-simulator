@@ -298,6 +298,13 @@ canvas {
     margin: 10px 0 0 0;
 }
 
+.result-symbol {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+}
+
 .summary-column:nth-child(1) .result-number {
     color: #856404;
 }
