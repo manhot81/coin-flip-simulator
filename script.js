@@ -16,6 +16,86 @@ const hexDict = {
     '001111': 34, '101111': 14, '011111': 43, '111111': 1
 };
 
+// I Ching data embedded directly
+const ichingData = {
+    "trigrams": [
+        {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000"},
+        {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001"},
+        {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010"},
+        {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011"},
+        {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100"},
+        {"id": 5, "name": "離", "pinyin": "Li", "binary": "101"},
+        {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110"},
+        {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111"}
+    ],
+    "hexagrams": [
+        {"id": 1, "name": "乾", "pinyin": "Qian", "symbol": "乾上乾下", "trigram_upper": 7, "trigram_lower": 7},
+        {"id": 2, "name": "坤", "pinyin": "Kun", "symbol": "坤上坤下", "trigram_upper": 0, "trigram_lower": 0},
+        {"id": 3, "name": "屯", "pinyin": "Zhun", "symbol": "坎上震下", "trigram_upper": 2, "trigram_lower": 1},
+        {"id": 4, "name": "蒙", "pinyin": "Meng", "symbol": "艮上坎下", "trigram_upper": 4, "trigram_lower": 2},
+        {"id": 5, "name": "需", "pinyin": "Xu", "symbol": "坎上乾下", "trigram_upper": 2, "trigram_lower": 7},
+        {"id": 6, "name": "訟", "pinyin": "Song", "symbol": "乾上坎下", "trigram_upper": 7, "trigram_lower": 2},
+        {"id": 7, "name": "師", "pinyin": "Shi", "symbol": "坎上坤下", "trigram_upper": 2, "trigram_lower": 0},
+        {"id": 8, "name": "比", "pinyin": "Bi", "symbol": "坤上坎下", "trigram_upper": 0, "trigram_lower": 2},
+        {"id": 9, "name": "小畜", "pinyin": "Xiao Chu", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7},
+        {"id": 10, "name": "履", "pinyin": "Lü", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3},
+        {"id": 11, "name": "泰", "pinyin": "Tai", "symbol": "坤上乾下", "trigram_upper": 0, "trigram_lower": 7},
+        {"id": 12, "name": "否", "pinyin": "Pi", "symbol": "乾上坤下", "trigram_upper": 7, "trigram_lower": 0},
+        {"id": 13, "name": "同人", "pinyin": "Tong Ren", "symbol": "乾上離下", "trigram_upper": 7, "trigram_lower": 5},
+        {"id": 14, "name": "大有", "pinyin": "Da You", "symbol": "離上乾下", "trigram_upper": 5, "trigram_lower": 7},
+        {"id": 15, "name": "謙", "pinyin": "Qian", "symbol": "坤上艮下", "trigram_upper": 0, "trigram_lower": 4},
+        {"id": 16, "name": "豫", "pinyin": "Yu", "symbol": "震上坤下", "trigram_upper": 1, "trigram_lower": 0},
+        {"id": 17, "name": "隨", "pinyin": "Sui", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1},
+        {"id": 18, "name": "蠱", "pinyin": "Gu", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4},
+        {"id": 19, "name": "臨", "pinyin": "Lin", "symbol": "坤上兌下", "trigram_upper": 0, "trigram_lower": 3},
+        {"id": 20, "name": "觀", "pinyin": "Guan", "symbol": "巽上坤下", "trigram_upper": 6, "trigram_lower": 0},
+        {"id": 21, "name": "噬嗑", "pinyin": "Shi He", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1},
+        {"id": 22, "name": "賁", "pinyin": "Bi", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5},
+        {"id": 23, "name": "剝", "pinyin": "Bo", "symbol": "艮上坤下", "trigram_upper": 4, "trigram_lower": 0},
+        {"id": 24, "name": "復", "pinyin": "Fu", "symbol": "坤上震下", "trigram_upper": 0, "trigram_lower": 1},
+        {"id": 25, "name": "无妄", "pinyin": "Wu Wang", "symbol": "乾上震下", "trigram_upper": 7, "trigram_lower": 1},
+        {"id": 26, "name": "大畜", "pinyin": "Da Chu", "symbol": "艮上乾下", "trigram_upper": 4, "trigram_lower": 7},
+        {"id": 27, "name": "頤", "pinyin": "Yi", "symbol": "震上艮下", "trigram_upper": 1, "trigram_lower": 4},
+        {"id": 28, "name": "大過", "pinyin": "Da Guo", "symbol": "兌上巽下", "trigram_upper": 3, "trigram_lower": 6},
+        {"id": 29, "name": "坎", "pinyin": "Kan", "symbol": "坎上坎下", "trigram_upper": 2, "trigram_lower": 2},
+        {"id": 30, "name": "離", "pinyin": "Li", "symbol": "離上離下", "trigram_upper": 5, "trigram_lower": 5},
+        {"id": 31, "name": "咸", "pinyin": "Xian", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4},
+        {"id": 32, "name": "恆", "pinyin": "Heng", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1},
+        {"id": 33, "name": "遯", "pinyin": "Dun", "symbol": "乾上艮下", "trigram_upper": 7, "trigram_lower": 4},
+        {"id": 34, "name": "大壯", "pinyin": "Da Zhuang", "symbol": "震上乾下", "trigram_upper": 1, "trigram_lower": 7},
+        {"id": 35, "name": "晉", "pinyin": "Jin", "symbol": "離上坤下", "trigram_upper": 5, "trigram_lower": 0},
+        {"id": 36, "name": "明夷", "pinyin": "Ming Yi", "symbol": "坤上離下", "trigram_upper": 0, "trigram_lower": 5},
+        {"id": 37, "name": "家人", "pinyin": "Jia Ren", "symbol": "巽上離下", "trigram_upper": 6, "trigram_lower": 5},
+        {"id": 38, "name": "睽", "pinyin": "Kui", "symbol": "離上兌下", "trigram_upper": 5, "trigram_lower": 3},
+        {"id": 39, "name": "蹇", "pinyin": "Jian", "symbol": "坎上艮下", "trigram_upper": 2, "trigram_lower": 4},
+        {"id": 40, "name": "解", "pinyin": "Xie", "symbol": "震上坎下", "trigram_upper": 1, "trigram_lower": 2},
+        {"id": 41, "name": "損", "pinyin": "Sun", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4},
+        {"id": 42, "name": "益", "pinyin": "Yi", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1},
+        {"id": 43, "name": "夬", "pinyin": "Guai", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3},
+        {"id": 44, "name": "姤", "pinyin": "Gou", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7},
+        {"id": 45, "name": "萃", "pinyin": "Cui", "symbol": "兌上坤下", "trigram_upper": 3, "trigram_lower": 0},
+        {"id": 46, "name": "升", "pinyin": "Sheng", "symbol": "坤上巽下", "trigram_upper": 0, "trigram_lower": 6},
+        {"id": 47, "name": "困", "pinyin": "Kun", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2},
+        {"id": 48, "name": "井", "pinyin": "Jing", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6},
+        {"id": 49, "name": "革", "pinyin": "Ge", "symbol": "兌上離下", "trigram_upper": 3, "trigram_lower": 5},
+        {"id": 50, "name": "鼎", "pinyin": "Ding", "symbol": "離上巽下", "trigram_upper": 5, "trigram_lower": 6},
+        {"id": 51, "name": "震", "pinyin": "Zhen", "symbol": "震上震下", "trigram_upper": 1, "trigram_lower": 1},
+        {"id": 52, "name": "艮", "pinyin": "Gen", "symbol": "艮上艮下", "trigram_upper": 4, "trigram_lower": 4},
+        {"id": 53, "name": "漸", "pinyin": "Jian", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4},
+        {"id": 54, "name": "歸妹", "pinyin": "Gui Mei", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1},
+        {"id": 55, "name": "豐", "pinyin": "Feng", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1},
+        {"id": 56, "name": "旅", "pinyin": "Lü", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5},
+        {"id": 57, "name": "巽", "pinyin": "Xun", "symbol": "巽上巽下", "trigram_upper": 6, "trigram_lower": 6},
+        {"id": 58, "name": "兌", "pinyin": "Dui", "symbol": "兌上兌下", "trigram_upper": 3, "trigram_lower": 3},
+        {"id": 59, "name": "渙", "pinyin": "Huan", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6},
+        {"id": 60, "name": "節", "pinyin": "Jie", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2},
+        {"id": 61, "name": "中孚", "pinyin": "Zhong Fu", "symbol": "巽上兌下", "trigram_upper": 6, "trigram_lower": 3},
+        {"id": 62, "name": "小過", "pinyin": "Xiao Guo", "symbol": "艮上震下", "trigram_upper": 4, "trigram_lower": 1},
+        {"id": 63, "name": "既濟", "pinyin": "Ji Ji", "symbol": "離上坎下", "trigram_upper": 5, "trigram_lower": 2},
+        {"id": 64, "name": "未濟", "pinyin": "Wei Ji", "symbol": "坎上離下", "trigram_upper": 2, "trigram_lower": 5}
+    ]
+};
+
 // Convert flip result to display string based on rules
 function convertResult(flip) {
     const headsCount = flip.filter(coin => coin === 'H').length;
@@ -68,6 +148,16 @@ function resultToBinary(result) {
     return '0'; // default
 }
 
+// Convert binary to symbol representation
+function binaryToSymbol(binaryString) {
+    // Convert each bit: 1 = '---', 0 = '- -'
+    let symbols = [];
+    for (let i = 0; i < binaryString.length; i++) {
+        symbols.push(binaryString[i] === '1' ? '---' : '- -');
+    }
+    return symbols;
+}
+
 // Calculate binary conversion for upper and lower groups
 function calculateBinaryGroups(finalResults) {
     // Upper 3 results (indices 5, 4, 3) - from flip 6, 5, 4
@@ -85,6 +175,111 @@ function calculateBinaryGroups(finalResults) {
 function lookupResultNumber(upperBinary, lowerBinary) {
     const combinedBinary = upperBinary + lowerBinary;
     return hexDict[combinedBinary] || 'N/A';
+}
+
+// Generate and display the hex dictionary lookup table
+function generateHexTable() {
+    const tableElement = document.getElementById('hexTable');
+    tableElement.innerHTML = ''; // Clear previous table
+    
+    // Create trigram index maps from embedded data
+    const trigramByBinary = {};
+    const trigramById = {};
+    
+    ichingData.trigrams.forEach(trigram => {
+        trigramByBinary[trigram.binary] = trigram;
+        trigramById[trigram.id] = trigram;
+    });
+    
+    // Create hexagram index
+    const hexagramById = {};
+    ichingData.hexagrams.forEach(hex => {
+        hexagramById[hex.id] = hex;
+    });
+    
+    // Header sequence in binary for columns
+    const colHeaders = ['111', '011', '101', '001', '110', '010', '100', '000'];
+    
+    // Create thead
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = '<th></th>'; // Corner cell
+    
+    colHeaders.forEach(binary => {
+        const th = document.createElement('th');
+        const trigram = trigramByBinary[binary];
+        
+        // Display trigram name
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = trigram.name;
+        th.appendChild(nameDiv);
+        
+        // Display binary as vertical symbols
+        const symbols = binaryToSymbol(binary);
+        const symbolDiv = document.createElement('div');
+        symbolDiv.className = 'header-symbol';
+        symbols.forEach((symbol, index) => {
+            if (index > 0) {
+                symbolDiv.appendChild(document.createElement('br'));
+            }
+            symbolDiv.appendChild(document.createTextNode(symbol));
+        });
+        th.appendChild(symbolDiv);
+        
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    tableElement.appendChild(thead);
+    
+    // Create tbody
+    const tbody = document.createElement('tbody');
+    const rowHeaders = ['111', '011', '101', '001', '110', '010', '100', '000'];
+    
+    rowHeaders.forEach(rowBinary => {
+        const row = document.createElement('tr');
+        
+        // Row header
+        const rowHeaderCell = document.createElement('th');
+        const rowTrigram = trigramByBinary[rowBinary];
+        
+        // Display trigram name
+        const nameDiv = document.createElement('div');
+        nameDiv.textContent = rowTrigram.name;
+        rowHeaderCell.appendChild(nameDiv);
+        
+        // Display binary as vertical symbols
+        const symbols = binaryToSymbol(rowBinary);
+        const symbolDiv = document.createElement('div');
+        symbolDiv.className = 'header-symbol';
+        symbols.forEach((symbol, index) => {
+            if (index > 0) {
+                symbolDiv.appendChild(document.createElement('br'));
+            }
+            symbolDiv.appendChild(document.createTextNode(symbol));
+        });
+        rowHeaderCell.appendChild(symbolDiv);
+        
+        row.appendChild(rowHeaderCell);
+        
+        // Data cells
+        colHeaders.forEach(colBinary => {
+            const cell = document.createElement('td');
+            const binaryValue = rowBinary + colBinary; // Upper + Lower
+            const hexagramId = hexDict[binaryValue];
+            const hexagram = hexagramById[hexagramId];
+            
+            cell.innerHTML = `
+                <div class="hex-name">${hexagram.name}</div>
+                <div class="hex-symbol">${hexagram.symbol}</div>
+                <div class="hex-id">${hexagram.id}</div>
+            `;
+            
+            row.appendChild(cell);
+        });
+        
+        tbody.appendChild(row);
+    });
+    tableElement.appendChild(tbody);
 }
 
 // Flip a single coin (returns 'H' for Heads or 'T' for Tails)
@@ -270,6 +465,10 @@ function handleFlipButton() {
     
     displayResults(flips);
     displayChart(counts);
+    generateHexTable();
+    
+    // Show table section
+    document.getElementById('tableSection').style.display = 'block';
 }
 
 // Attach event listener to the button
