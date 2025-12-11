@@ -150,10 +150,11 @@ function resultToBinary(result) {
 
 // Convert binary to symbol representation
 function binaryToSymbol(binaryString) {
-    // Convert each bit: 1 = '---', 0 = '- -'
+    // Convert each bit: 1 = '━━━' (solid line), 0 = '━ ━' (broken line)
+    // Using Unicode box drawing characters for I Ching symbols
     let symbols = [];
     for (let i = 0; i < binaryString.length; i++) {
-        symbols.push(binaryString[i] === '1' ? '---' : '- -');
+        symbols.push(binaryString[i] === '1' ? '━━━' : '━ ━');
     }
     return symbols;
 }
@@ -250,7 +251,7 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
         // Display binary as vertical symbols
         const symbols = binaryToSymbol(rowBinary);
         const symbolDiv = document.createElement('div');
-        symbolDiv.className = 'row-header-symbol';
+        symbolDiv.className = 'header-symbol';
         symbols.forEach((symbol, index) => {
             if (index > 0) {
                 symbolDiv.appendChild(document.createElement('br'));

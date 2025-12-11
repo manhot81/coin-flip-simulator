@@ -362,11 +362,6 @@ canvas {
     background: linear-gradient(90deg, #f0f0f0 0%, white 100%);
     font-weight: bold;
     color: #667eea;
-    min-width: 120px;
-    max-width: 120px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
 }
 
 .hex-cell {
@@ -404,35 +399,23 @@ canvas {
 }
 
 .header-symbol {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    letter-spacing: 0px;
-    white-space: normal;
-    line-height: 1.6;
-    word-break: break-word;
-}
-
-.hex-table th:first-child {
-    min-width: 120px;
-    max-width: 120px;
-    padding: 12px 6px !important;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-}
-
-.row-header-symbol {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
+    font-family: 'Segoe UI Symbol', 'Apple Color Emoji', Arial, sans-serif;
+    font-size: 14px;
     letter-spacing: 0px;
     white-space: normal;
     line-height: 1.8;
-    word-break: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.row-header-symbol {
+    font-family: 'Segoe UI Symbol', 'Apple Color Emoji', Arial, sans-serif;
+    font-size: 14px;
+    letter-spacing: 0px;
+    white-space: normal;
+    line-height: 1.8;
+    word-break: break-word;
     font-weight: bold;
     color: #667eea;
-    margin-top: 5px;
 }
 
 /* Highlighting for converted and final results */
@@ -643,19 +626,16 @@ canvas {
         overflow-x: auto;
         margin-top: 15px;
         -webkit-overflow-scrolling: touch;
-        border: 1px solid #ddd;
-        border-radius: 4px;
     }
 
     .hex-table {
         font-size: 12px;
-        min-width: 400px;
     }
 
     .hex-table th,
     .hex-table td {
-        padding: 8px 6px;
-        font-size: 9px;
+        padding: 8px 10px;
+        font-size: 10px;
     }
 
     .hex-table tbody td {
@@ -663,16 +643,16 @@ canvas {
     }
 
     .hex-cell {
-        padding: 8px 6px !important;
-        font-size: 8px !important;
+        padding: 8px 10px !important;
+        font-size: 9px !important;
     }
 
     .hex-name {
-        font-size: 8px;
+        font-size: 9px;
     }
 
     .hex-symbol {
-        font-size: 7px;
+        font-size: 8px;
         margin: 2px 0;
     }
 
@@ -681,13 +661,13 @@ canvas {
     }
 
     .header-symbol {
-        font-size: 8px;
-        letter-spacing: 0px;
+        font-size: 10px;
+        letter-spacing: 1px;
     }
 
     .row-header-symbol {
-        font-size: 8px;
-        letter-spacing: 0px;
+        font-size: 10px;
+        letter-spacing: 1px;
     }
 
     .modal-content {
@@ -773,62 +753,37 @@ canvas {
         padding: 12px;
     }
 
-    .table-container {
-        overflow-x: auto;
-        margin-top: 15px;
-        -webkit-overflow-scrolling: touch;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-
     .hex-table {
-        font-size: 10px;
-        min-width: 320px;
+        font-size: 11px;
     }
 
     .hex-table th,
     .hex-table td {
-        padding: 5px 4px;
-        font-size: 8px;
-        border: 1px solid #ddd;
-    }
-
-    .hex-table th {
-        font-size: 7px;
-        padding: 4px 3px;
+        padding: 6px 8px;
+        font-size: 9px;
     }
 
     .hex-table tbody td {
-        min-height: 50px;
-        padding: 5px 4px;
+        min-height: 55px;
     }
 
     .hex-name {
-        font-size: 7px;
-        line-height: 1.2;
+        font-size: 8px;
     }
 
     .hex-symbol {
-        font-size: 6px;
+        font-size: 7px;
         margin: 1px 0;
-        line-height: 1.2;
     }
 
     .hex-id {
-        font-size: 6px;
-        line-height: 1.2;
-    }
-
-    .header-symbol {
         font-size: 7px;
-        letter-spacing: 0px;
-        line-height: 1.3;
     }
 
+    .header-symbol,
     .row-header-symbol {
-        font-size: 7px;
-        letter-spacing: 0px;
-        line-height: 1.3;
+        font-size: 9px;
+        letter-spacing: 0.5px;
     }
 
     #modalTitle {
