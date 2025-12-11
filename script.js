@@ -16,17 +16,18 @@ const hexDict = {
     '001111': 34, '101111': 14, '011111': 43, '111111': 1
 };
 
+
 // I Ching data embedded directly
 const ichingData = {
     "trigrams": [
-        {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000"},
-        {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001"},
-        {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010"},
-        {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011"},
-        {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100"},
-        {"id": 5, "name": "離", "pinyin": "Li", "binary": "101"},
-        {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110"},
-        {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111"}
+        {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000", "code": '\u2637'},
+        {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001", "code": '\u2633'},
+        {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010", "code": '\u2635'},
+        {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011", "code": '\u2631'},
+        {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100", "code": '\u2636'},
+        {"id": 5, "name": "離", "pinyin": "Li", "binary": "101", "code": '\u2632'},
+        {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110", "code": '\u2634'},
+        {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111", "code": '\u2630'}
     ],
     "hexagrams": [
         {"id": 1, "name": "乾", "pinyin": "Qian", "symbol": "乾上乾下", "trigram_upper": 7, "trigram_lower": 7, "ci": "元亨利貞。"},
@@ -186,10 +187,12 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
     // Create trigram index maps from embedded data
     const trigramByBinary = {};
     const trigramById = {};
+    const trigramByChar = {}
     
     ichingData.trigrams.forEach(trigram => {
         trigramByBinary[trigram.binary] = trigram;
         trigramById[trigram.id] = trigram;
+        trigramByChar[trigram.code] = trigram;
     });
     
     // Create hexagram index
@@ -219,12 +222,13 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
         const symbols = binaryToSymbol(binary);
         const symbolDiv = document.createElement('div');
         symbolDiv.className = 'header-symbol';
-        symbols.forEach((symbol, index) => {
-            if (index > 0) {
-                symbolDiv.appendChild(document.createElement('br'));
-            }
-            symbolDiv.appendChild(document.createTextNode(symbol));
-        });
+        symbolDiv.textContent = trigram.code;
+        // symbols.forEach((symbol, index) => {
+        //     if (index > 0) {
+        //         symbolDiv.appendChild(document.createElement('br'));
+        //     }
+        //     symbolDiv.appendChild(document.createTextNode(symbol));
+        // });
         th.appendChild(symbolDiv);
         
         headerRow.appendChild(th);
@@ -252,12 +256,13 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
         const symbols = binaryToSymbol(rowBinary);
         const symbolDiv = document.createElement('div');
         symbolDiv.className = 'header-symbol';
-        symbols.forEach((symbol, index) => {
-            if (index > 0) {
-                symbolDiv.appendChild(document.createElement('br'));
-            }
-            symbolDiv.appendChild(document.createTextNode(symbol));
-        });
+        symbolDiv.textContent = rowTrigram.code;
+        // symbols.forEach((symbol, index) => {
+        //     if (index > 0) {
+        //         symbolDiv.appendChild(document.createElement('br'));
+        //     }
+        //     symbolDiv.appendChild(document.createTextNode(symbol));
+        // });
         rowHeaderCell.appendChild(symbolDiv);
         
         row.appendChild(rowHeaderCell);
