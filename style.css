@@ -434,3 +434,21 @@ canvas {
 .hex-table tbody td:hover {
     background-color: #e8eef7;
 }
+
+/* Highlighting for converted result column */
+.hex-table tbody td.converted-result {
+    background-color: #fff3cd;
+}
+
+.hex-table tbody td.converted-result:hover {
+    background-color: #ffe69c;
+}
+
+/* Highlighting for final result column */
+.hex-table tbody td.final-result {
+    background-color: #d1ecf1;
+}
+
+.hex-table tbody td.final-result:hover {
+    background-color: #bee5eb;
+}
