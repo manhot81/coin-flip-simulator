@@ -178,7 +178,7 @@ function lookupResultNumber(upperBinary, lowerBinary) {
 }
 
 // Generate and display the hex dictionary lookup table
-function generateHexTable() {
+function generateHexTable(convertedBinary = null, finalBinary = null) {
     const tableElement = document.getElementById('hexTable');
     tableElement.innerHTML = ''; // Clear previous table
     
@@ -279,6 +279,14 @@ function generateHexTable() {
                 openHexagramModal(hexagramId, hexagram.name);
             });
             
+            // Add highlighting if this cell matches converted or final result
+            if (convertedBinary && binaryValue === convertedBinary) {
+                cell.classList.add('converted-result');
+            }
+            if (finalBinary && binaryValue === finalBinary) {
+                cell.classList.add('final-result');
+            }
+            
             row.appendChild(cell);
         });
         
@@ -339,6 +347,9 @@ function displayResults(flips) {
     const convertedResults = []; // Store converted results
     const finalResults = []; // Store final results
     
+    // Store reference for highlighting
+    window.highlightedBinaries = { converted: null, final: null };
+    
     // Display each flip result
     flips.forEach((flip, index) => {
         // Left column: Flip Results
@@ -373,8 +384,20 @@ function displayResults(flips) {
     
     resultsSection.style.display = 'block';
     
+    // Calculate and store binary values for highlighting
+    const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
+    const finalBinaryGroups = calculateBinaryGroups(finalResults);
+    window.highlightedBinaries.converted = convertedBinaryGroups.upper + convertedBinaryGroups.lower;
+    window.highlightedBinaries.final = finalBinaryGroups.upper + finalBinaryGroups.lower;
+    
     // Display binary conversion summary for both columns
     displayBinarySummary(convertedResults, finalResults);
+    
+    // Return the binary values for table highlighting
+    return {
+        convertedBinary: window.highlightedBinaries.converted,
+        finalBinary: window.highlightedBinaries.final
+    };
 }
 
 // Create or update the bar chart
@@ -468,9 +491,9 @@ function handleFlipButton() {
     const flips = runSimulation();
     const counts = countResults(flips);
     
-    displayResults(flips);
+    const { convertedBinary, finalBinary } = displayResults(flips);
     displayChart(counts);
-    generateHexTable();
+    generateHexTable(convertedBinary, finalBinary);
     
     // Show table section
     document.getElementById('tableSection').style.display = 'block';
