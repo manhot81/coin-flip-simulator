@@ -362,6 +362,7 @@ canvas {
     background: linear-gradient(90deg, #f0f0f0 0%, white 100%);
     font-weight: bold;
     color: #667eea;
+    min-width: 70px;
 }
 
 .hex-cell {
@@ -405,6 +406,11 @@ canvas {
     white-space: normal;
     line-height: 1.6;
     word-break: break-word;
+}
+
+.hex-table th:first-child {
+    min-width: 70px;
+    padding: 12px 8px !important;
 }
 
 .row-header-symbol {

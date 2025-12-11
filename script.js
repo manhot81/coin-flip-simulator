@@ -250,7 +250,7 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
         // Display binary as vertical symbols
         const symbols = binaryToSymbol(rowBinary);
         const symbolDiv = document.createElement('div');
-        symbolDiv.className = 'header-symbol';
+        symbolDiv.className = 'row-header-symbol';
         symbols.forEach((symbol, index) => {
             if (index > 0) {
                 symbolDiv.appendChild(document.createElement('br'));
