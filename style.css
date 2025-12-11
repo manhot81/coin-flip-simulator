@@ -317,12 +317,9 @@ canvas {
     overflow-x: auto;
     margin-top: 20px;
     -webkit-overflow-scrolling: touch;
-    width: 100%;
 }
 
 .hex-table {
-    width: 100%;
-    min-width: 600px;
     border-collapse: collapse;
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
