@@ -29,70 +29,70 @@ const ichingData = {
         {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111"}
     ],
     "hexagrams": [
-        {"id": 1, "name": "乾", "pinyin": "Qian", "symbol": "乾上乾下", "trigram_upper": 7, "trigram_lower": 7},
-        {"id": 2, "name": "坤", "pinyin": "Kun", "symbol": "坤上坤下", "trigram_upper": 0, "trigram_lower": 0},
-        {"id": 3, "name": "屯", "pinyin": "Zhun", "symbol": "坎上震下", "trigram_upper": 2, "trigram_lower": 1},
-        {"id": 4, "name": "蒙", "pinyin": "Meng", "symbol": "艮上坎下", "trigram_upper": 4, "trigram_lower": 2},
-        {"id": 5, "name": "需", "pinyin": "Xu", "symbol": "坎上乾下", "trigram_upper": 2, "trigram_lower": 7},
-        {"id": 6, "name": "訟", "pinyin": "Song", "symbol": "乾上坎下", "trigram_upper": 7, "trigram_lower": 2},
-        {"id": 7, "name": "師", "pinyin": "Shi", "symbol": "坎上坤下", "trigram_upper": 2, "trigram_lower": 0},
-        {"id": 8, "name": "比", "pinyin": "Bi", "symbol": "坤上坎下", "trigram_upper": 0, "trigram_lower": 2},
-        {"id": 9, "name": "小畜", "pinyin": "Xiao Chu", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7},
-        {"id": 10, "name": "履", "pinyin": "Lü", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3},
-        {"id": 11, "name": "泰", "pinyin": "Tai", "symbol": "坤上乾下", "trigram_upper": 0, "trigram_lower": 7},
-        {"id": 12, "name": "否", "pinyin": "Pi", "symbol": "乾上坤下", "trigram_upper": 7, "trigram_lower": 0},
-        {"id": 13, "name": "同人", "pinyin": "Tong Ren", "symbol": "乾上離下", "trigram_upper": 7, "trigram_lower": 5},
-        {"id": 14, "name": "大有", "pinyin": "Da You", "symbol": "離上乾下", "trigram_upper": 5, "trigram_lower": 7},
-        {"id": 15, "name": "謙", "pinyin": "Qian", "symbol": "坤上艮下", "trigram_upper": 0, "trigram_lower": 4},
-        {"id": 16, "name": "豫", "pinyin": "Yu", "symbol": "震上坤下", "trigram_upper": 1, "trigram_lower": 0},
-        {"id": 17, "name": "隨", "pinyin": "Sui", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1},
-        {"id": 18, "name": "蠱", "pinyin": "Gu", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4},
-        {"id": 19, "name": "臨", "pinyin": "Lin", "symbol": "坤上兌下", "trigram_upper": 0, "trigram_lower": 3},
-        {"id": 20, "name": "觀", "pinyin": "Guan", "symbol": "巽上坤下", "trigram_upper": 6, "trigram_lower": 0},
-        {"id": 21, "name": "噬嗑", "pinyin": "Shi He", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1},
-        {"id": 22, "name": "賁", "pinyin": "Bi", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5},
-        {"id": 23, "name": "剝", "pinyin": "Bo", "symbol": "艮上坤下", "trigram_upper": 4, "trigram_lower": 0},
-        {"id": 24, "name": "復", "pinyin": "Fu", "symbol": "坤上震下", "trigram_upper": 0, "trigram_lower": 1},
-        {"id": 25, "name": "无妄", "pinyin": "Wu Wang", "symbol": "乾上震下", "trigram_upper": 7, "trigram_lower": 1},
-        {"id": 26, "name": "大畜", "pinyin": "Da Chu", "symbol": "艮上乾下", "trigram_upper": 4, "trigram_lower": 7},
-        {"id": 27, "name": "頤", "pinyin": "Yi", "symbol": "震上艮下", "trigram_upper": 1, "trigram_lower": 4},
-        {"id": 28, "name": "大過", "pinyin": "Da Guo", "symbol": "兌上巽下", "trigram_upper": 3, "trigram_lower": 6},
-        {"id": 29, "name": "坎", "pinyin": "Kan", "symbol": "坎上坎下", "trigram_upper": 2, "trigram_lower": 2},
-        {"id": 30, "name": "離", "pinyin": "Li", "symbol": "離上離下", "trigram_upper": 5, "trigram_lower": 5},
-        {"id": 31, "name": "咸", "pinyin": "Xian", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4},
-        {"id": 32, "name": "恆", "pinyin": "Heng", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1},
-        {"id": 33, "name": "遯", "pinyin": "Dun", "symbol": "乾上艮下", "trigram_upper": 7, "trigram_lower": 4},
-        {"id": 34, "name": "大壯", "pinyin": "Da Zhuang", "symbol": "震上乾下", "trigram_upper": 1, "trigram_lower": 7},
-        {"id": 35, "name": "晉", "pinyin": "Jin", "symbol": "離上坤下", "trigram_upper": 5, "trigram_lower": 0},
-        {"id": 36, "name": "明夷", "pinyin": "Ming Yi", "symbol": "坤上離下", "trigram_upper": 0, "trigram_lower": 5},
-        {"id": 37, "name": "家人", "pinyin": "Jia Ren", "symbol": "巽上離下", "trigram_upper": 6, "trigram_lower": 5},
-        {"id": 38, "name": "睽", "pinyin": "Kui", "symbol": "離上兌下", "trigram_upper": 5, "trigram_lower": 3},
-        {"id": 39, "name": "蹇", "pinyin": "Jian", "symbol": "坎上艮下", "trigram_upper": 2, "trigram_lower": 4},
-        {"id": 40, "name": "解", "pinyin": "Xie", "symbol": "震上坎下", "trigram_upper": 1, "trigram_lower": 2},
-        {"id": 41, "name": "損", "pinyin": "Sun", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4},
-        {"id": 42, "name": "益", "pinyin": "Yi", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1},
-        {"id": 43, "name": "夬", "pinyin": "Guai", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3},
-        {"id": 44, "name": "姤", "pinyin": "Gou", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7},
-        {"id": 45, "name": "萃", "pinyin": "Cui", "symbol": "兌上坤下", "trigram_upper": 3, "trigram_lower": 0},
-        {"id": 46, "name": "升", "pinyin": "Sheng", "symbol": "坤上巽下", "trigram_upper": 0, "trigram_lower": 6},
-        {"id": 47, "name": "困", "pinyin": "Kun", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2},
-        {"id": 48, "name": "井", "pinyin": "Jing", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6},
-        {"id": 49, "name": "革", "pinyin": "Ge", "symbol": "兌上離下", "trigram_upper": 3, "trigram_lower": 5},
-        {"id": 50, "name": "鼎", "pinyin": "Ding", "symbol": "離上巽下", "trigram_upper": 5, "trigram_lower": 6},
-        {"id": 51, "name": "震", "pinyin": "Zhen", "symbol": "震上震下", "trigram_upper": 1, "trigram_lower": 1},
-        {"id": 52, "name": "艮", "pinyin": "Gen", "symbol": "艮上艮下", "trigram_upper": 4, "trigram_lower": 4},
-        {"id": 53, "name": "漸", "pinyin": "Jian", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4},
-        {"id": 54, "name": "歸妹", "pinyin": "Gui Mei", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1},
-        {"id": 55, "name": "豐", "pinyin": "Feng", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1},
-        {"id": 56, "name": "旅", "pinyin": "Lü", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5},
-        {"id": 57, "name": "巽", "pinyin": "Xun", "symbol": "巽上巽下", "trigram_upper": 6, "trigram_lower": 6},
-        {"id": 58, "name": "兌", "pinyin": "Dui", "symbol": "兌上兌下", "trigram_upper": 3, "trigram_lower": 3},
-        {"id": 59, "name": "渙", "pinyin": "Huan", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6},
-        {"id": 60, "name": "節", "pinyin": "Jie", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2},
-        {"id": 61, "name": "中孚", "pinyin": "Zhong Fu", "symbol": "巽上兌下", "trigram_upper": 6, "trigram_lower": 3},
-        {"id": 62, "name": "小過", "pinyin": "Xiao Guo", "symbol": "艮上震下", "trigram_upper": 4, "trigram_lower": 1},
-        {"id": 63, "name": "既濟", "pinyin": "Ji Ji", "symbol": "離上坎下", "trigram_upper": 5, "trigram_lower": 2},
-        {"id": 64, "name": "未濟", "pinyin": "Wei Ji", "symbol": "坎上離下", "trigram_upper": 2, "trigram_lower": 5}
+        {"id": 1, "name": "乾", "pinyin": "Qian", "symbol": "乾上乾下", "trigram_upper": 7, "trigram_lower": 7, "ci": "元亨利貞。"},
+        {"id": 2, "name": "坤", "pinyin": "Kun", "symbol": "坤上坤下", "trigram_upper": 0, "trigram_lower": 0, "ci": "元亨。利牝馬之貞。君子有攸往，先迷後得主，利。西南得朋，東北喪朋。安貞吉。"},
+        {"id": 3, "name": "屯", "pinyin": "Zhun", "symbol": "坎上震下", "trigram_upper": 2, "trigram_lower": 1, "ci": "元亨利貞。勿用有攸往，利建侯。"},
+        {"id": 4, "name": "蒙", "pinyin": "Meng", "symbol": "艮上坎下", "trigram_upper": 4, "trigram_lower": 2, "ci": "亨。匪我求童蒙，童蒙求我。初筮告，再三瀆，瀆不告。利貞。"},
+        {"id": 5, "name": "需", "pinyin": "Xu", "symbol": "坎上乾下", "trigram_upper": 2, "trigram_lower": 7, "ci": "有孚，光亨，貞吉。利涉大川。"},
+        {"id": 6, "name": "訟", "pinyin": "Song", "symbol": "乾上坎下", "trigram_upper": 7, "trigram_lower": 2, "ci": "有孚窒。惕中吉。終凶。利見大人，不利涉大川。"},
+        {"id": 7, "name": "師", "pinyin": "Shi", "symbol": "坎上坤下", "trigram_upper": 2, "trigram_lower": 0, "ci": "貞，丈人吉，无咎。"},
+        {"id": 8, "name": "比", "pinyin": "Bi", "symbol": "坤上坎下", "trigram_upper": 0, "trigram_lower": 2, "ci": "吉。原筮元永貞，无咎。不寧方來，後夫凶。"},
+        {"id": 9, "name": "小畜", "pinyin": "Xiao Chu", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7, "ci": "亨。密雲不雨，自我西郊。"},
+        {"id": 10, "name": "履", "pinyin": "Lü", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3, "ci": "履虎尾，不咥人，亨。"},
+        {"id": 11, "name": "泰", "pinyin": "Tai", "symbol": "坤上乾下", "trigram_upper": 0, "trigram_lower": 7, "ci": "小往大來，吉亨。"},
+        {"id": 12, "name": "否", "pinyin": "Pi", "symbol": "乾上坤下", "trigram_upper": 7, "trigram_lower": 0, "ci": "天地不交，否。君子以儉德辟難，不可榮以祿。"},
+        {"id": 13, "name": "同人", "pinyin": "Tong Ren", "symbol": "乾上離下", "trigram_upper": 7, "trigram_lower": 5, "ci": "同人于野，亨。利涉大川，利君子貞。"},
+        {"id": 14, "name": "大有", "pinyin": "Da You", "symbol": "離上乾下", "trigram_upper": 5, "trigram_lower": 7, "ci": "元亨。"},
+        {"id": 15, "name": "謙", "pinyin": "Qian", "symbol": "坤上艮下", "trigram_upper": 0, "trigram_lower": 4, "ci": "亨，君子有終。"},
+        {"id": 16, "name": "豫", "pinyin": "Yu", "symbol": "震上坤下", "trigram_upper": 1, "trigram_lower": 0, "ci": "利建侯行師。"},
+        {"id": 17, "name": "隨", "pinyin": "Sui", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1, "ci": "元亨利貞，无咎。"},
+        {"id": 18, "name": "蠱", "pinyin": "Gu", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4, "ci": "元亨，利涉大川。先甲三日，後甲三日。"},
+        {"id": 19, "name": "臨", "pinyin": "Lin", "symbol": "坤上兌下", "trigram_upper": 0, "trigram_lower": 3, "ci": "元亨利貞。至於八月有凶。"},
+        {"id": 20, "name": "觀", "pinyin": "Guan", "symbol": "巽上坤下", "trigram_upper": 6, "trigram_lower": 0, "ci": "盥而不薦，有孚顒若。"},
+        {"id": 21, "name": "噬嗑", "pinyin": "Shi He", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1, "ci": "亨。利用獄。"},
+        {"id": 22, "name": "賁", "pinyin": "Bi", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5, "ci": "亨。小利有攸往。"},
+        {"id": 23, "name": "剝", "pinyin": "Bo", "symbol": "艮上坤下", "trigram_upper": 4, "trigram_lower": 0, "ci": "利西南，不利有攸往。"},
+        {"id": 24, "name": "復", "pinyin": "Fu", "symbol": "坤上震下", "trigram_upper": 0, "trigram_lower": 1, "ci": "亨。出入无疾，朋來无咎。反復其道，七日來復，利有攸往。"},
+        {"id": 25, "name": "无妄", "pinyin": "Wu Wang", "symbol": "乾上震下", "trigram_upper": 7, "trigram_lower": 1, "ci": "元亨利貞。其匪正有眚，不利有攸往。"},
+        {"id": 26, "name": "大畜", "pinyin": "Da Chu", "symbol": "艮上乾下", "trigram_upper": 4, "trigram_lower": 7, "ci": "利貞。不家食吉，利涉大川。"},
+        {"id": 27, "name": "頤", "pinyin": "Yi", "symbol": "震上艮下", "trigram_upper": 1, "trigram_lower": 4, "ci": "貞吉。觀頤，自求口實。"},
+        {"id": 28, "name": "大過", "pinyin": "Da Guo", "symbol": "兌上巽下", "trigram_upper": 3, "trigram_lower": 6, "ci": "棟橈，利有攸往，亨。"},
+        {"id": 29, "name": "坎", "pinyin": "Kan", "symbol": "坎上坎下", "trigram_upper": 2, "trigram_lower": 2, "ci": "習坎。有孚，維心亨，行有尚。"},
+        {"id": 30, "name": "離", "pinyin": "Li", "symbol": "離上離下", "trigram_upper": 5, "trigram_lower": 5, "ci": "利貞，亨。畜牝牛吉。"},
+        {"id": 31, "name": "咸", "pinyin": "Xian", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4, "ci": "亨，利貞，取女吉。"},
+        {"id": 32, "name": "恆", "pinyin": "Heng", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1, "ci": "亨，无咎，利貞，利有攸往。"},
+        {"id": 33, "name": "遯", "pinyin": "Dun", "symbol": "乾上艮下", "trigram_upper": 7, "trigram_lower": 4, "ci": "亨。小利貞。"},
+        {"id": 34, "name": "大壯", "pinyin": "Da Zhuang", "symbol": "震上乾下", "trigram_upper": 1, "trigram_lower": 7, "ci": "利貞。"},
+        {"id": 35, "name": "晉", "pinyin": "Jin", "symbol": "離上坤下", "trigram_upper": 5, "trigram_lower": 0, "ci": "康侯用錫馬蕃庶，晝日三接。"},
+        {"id": 36, "name": "明夷", "pinyin": "Ming Yi", "symbol": "坤上離下", "trigram_upper": 0, "trigram_lower": 5, "ci": "利艱貞。"},
+        {"id": 37, "name": "家人", "pinyin": "Jia Ren", "symbol": "巽上離下", "trigram_upper": 6, "trigram_lower": 5, "ci": "利女貞。"},
+        {"id": 38, "name": "睽", "pinyin": "Kui", "symbol": "離上兌下", "trigram_upper": 5, "trigram_lower": 3, "ci": "小事吉。"},
+        {"id": 39, "name": "蹇", "pinyin": "Jian", "symbol": "坎上艮下", "trigram_upper": 2, "trigram_lower": 4, "ci": "利西南，不利東北。利見大人，貞吉。"},
+        {"id": 40, "name": "解", "pinyin": "Xie", "symbol": "震上坎下", "trigram_upper": 1, "trigram_lower": 2, "ci": "利西南，无所往，其來復吉。有攸往，夙吉。"},
+        {"id": 41, "name": "損", "pinyin": "Sun", "symbol": "兌上艮下", "trigram_upper": 3, "trigram_lower": 4, "ci": "有孚，元吉，无咎，可貞，利有攸往。曷之用，二簋可用享。"},
+        {"id": 42, "name": "益", "pinyin": "Yi", "symbol": "巽上震下", "trigram_upper": 6, "trigram_lower": 1, "ci": "利有攸往，利涉大川。"},
+        {"id": 43, "name": "夬", "pinyin": "Guai", "symbol": "乾上兌下", "trigram_upper": 7, "trigram_lower": 3, "ci": "揚于王庭，孚號有厲，告自邑，不利即戎，利有攸往。"},
+        {"id": 44, "name": "姤", "pinyin": "Gou", "symbol": "巽上乾下", "trigram_upper": 6, "trigram_lower": 7, "ci": "女壯，勿用取女。"},
+        {"id": 45, "name": "萃", "pinyin": "Cui", "symbol": "兌上坤下", "trigram_upper": 3, "trigram_lower": 0, "ci": "亨。王假有廟，利見大人，亨，利貞。用大牲吉，利有攸往。"},
+        {"id": 46, "name": "升", "pinyin": "Sheng", "symbol": "坤上巽下", "trigram_upper": 0, "trigram_lower": 6, "ci": "元亨，用見大人，勿恤，南征吉。"},
+        {"id": 47, "name": "困", "pinyin": "Kun", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2, "ci": "亨，貞，大人吉，无咎。有言不信。"},
+        {"id": 48, "name": "井", "pinyin": "Jing", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6, "ci": "改邑不改井，无喪无得，往來井井。汔至亦未繘井，羸其瓶，凶。"},
+        {"id": 49, "name": "革", "pinyin": "Ge", "symbol": "兌上離下", "trigram_upper": 3, "trigram_lower": 5, "ci": "己日乃孚，元亨利貞，悔亡。"},
+        {"id": 50, "name": "鼎", "pinyin": "Ding", "symbol": "離上巽下", "trigram_upper": 5, "trigram_lower": 6, "ci": "元吉，亨。"},
+        {"id": 51, "name": "震", "pinyin": "Zhen", "symbol": "震上震下", "trigram_upper": 1, "trigram_lower": 1, "ci": "亨。震來虩虩，笑言啞啞。震驚百里，不喪匕鬯。"},
+        {"id": 52, "name": "艮", "pinyin": "Gen", "symbol": "艮上艮下", "trigram_upper": 4, "trigram_lower": 4, "ci": "艮其背，不獲其身，行其庭，不見其人，无咎。"},
+        {"id": 53, "name": "漸", "pinyin": "Jian", "symbol": "巽上艮下", "trigram_upper": 6, "trigram_lower": 4, "ci": "女歸吉，利貞。"},
+        {"id": 54, "name": "歸妹", "pinyin": "Gui Mei", "symbol": "兌上震下", "trigram_upper": 3, "trigram_lower": 1, "ci": "征凶，无攸利。"},
+        {"id": 55, "name": "豐", "pinyin": "Feng", "symbol": "離上震下", "trigram_upper": 5, "trigram_lower": 1, "ci": "亨，王假之，勿憂，宜日中。"},
+        {"id": 56, "name": "旅", "pinyin": "Lü", "symbol": "艮上離下", "trigram_upper": 4, "trigram_lower": 5, "ci": "小亨，旅貞吉。"},
+        {"id": 57, "name": "巽", "pinyin": "Xun", "symbol": "巽上巽下", "trigram_upper": 6, "trigram_lower": 6, "ci": "小亨，利有攸往，利見大人。"},
+        {"id": 58, "name": "兌", "pinyin": "Dui", "symbol": "兌上兌下", "trigram_upper": 3, "trigram_lower": 3, "ci": "亨，利貞。"},
+        {"id": 59, "name": "渙", "pinyin": "Huan", "symbol": "坎上巽下", "trigram_upper": 2, "trigram_lower": 6, "ci": "亨。王假有廟，利涉大川，利貞。"},
+        {"id": 60, "name": "節", "pinyin": "Jie", "symbol": "兌上坎下", "trigram_upper": 3, "trigram_lower": 2, "ci": "亨。苦節不可貞。"},
+        {"id": 61, "name": "中孚", "pinyin": "Zhong Fu", "symbol": "巽上兌下", "trigram_upper": 6, "trigram_lower": 3, "ci": "豚魚吉，利涉大川，利貞。"},
+        {"id": 62, "name": "小過", "pinyin": "Xiao Guo", "symbol": "艮上震下", "trigram_upper": 4, "trigram_lower": 1, "ci": "亨，利貞，可小事，不可大事。飛鳥遺之音，不宜上，宜下，大吉。"},
+        {"id": 63, "name": "既濟", "pinyin": "Ji Ji", "symbol": "離上坎下", "trigram_upper": 5, "trigram_lower": 2, "ci": "亨小，利貞，初吉終亂。"},
+        {"id": 64, "name": "未濟", "pinyin": "Wei Ji", "symbol": "坎上離下", "trigram_upper": 2, "trigram_lower": 5, "ci": "亨，小狐汔濟，濡其尾，无攸利。"}
     ]
 };
 
@@ -264,7 +264,7 @@ function generateHexTable() {
         // Data cells
         colHeaders.forEach(colBinary => {
             const cell = document.createElement('td');
-            const binaryValue = rowBinary + colBinary; // Upper + Lower
+            const binaryValue = colBinary + rowBinary; // Column (Upper) + Row (Lower)
             const hexagramId = hexDict[binaryValue];
             const hexagram = hexagramById[hexagramId];
             
@@ -273,6 +273,11 @@ function generateHexTable() {
                 <div class="hex-symbol">${hexagram.symbol}</div>
                 <div class="hex-id">${hexagram.id}</div>
             `;
+            
+            // Add click event to open modal
+            cell.addEventListener('click', function() {
+                openHexagramModal(hexagramId, hexagram.name);
+            });
             
             row.appendChild(cell);
         });
@@ -471,5 +476,31 @@ function handleFlipButton() {
     document.getElementById('tableSection').style.display = 'block';
 }
 
-// Attach event listener to the button
+// Open modal and display hexagram details
+function openHexagramModal(hexagramId, hexagramName) {
+    const hexagram = ichingData.hexagrams.find(h => h.id === hexagramId);
+    if (!hexagram) return;
+    
+    document.getElementById('modalTitle').textContent = `${hexagram.name} (${hexagram.pinyin}) - #${hexagramId}`;
+    document.getElementById('modalBody').textContent = hexagram.ci;
+    document.getElementById('hexagramModal').style.display = 'flex';
+}
+
+// Close modal
+function closeHexagramModal() {
+    document.getElementById('hexagramModal').style.display = 'none';
+}
+
+// Attach event listeners
 document.getElementById('flipBtn').addEventListener('click', handleFlipButton);
+
+// Close modal when clicking the X button
+document.querySelector('.modal-close').addEventListener('click', closeHexagramModal);
+
+// Close modal when clicking outside the modal content
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('hexagramModal');
+    if (event.target === modal) {
+        closeHexagramModal();
+    }
+});
