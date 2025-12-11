@@ -328,12 +328,16 @@ canvas {
     font-size: 11px !important;
     line-height: 1.4;
     text-align: center;
+    vertical-align: middle;
+    height: 100%;
+    display: table-cell !important;
 }
 
 .hex-name {
     font-weight: bold;
     color: #764ba2;
     margin-bottom: 3px;
+    display: block;
 }
 
 .hex-symbol {
@@ -341,12 +345,14 @@ canvas {
     color: #666;
     margin-bottom: 2px;
     font-family: Arial, sans-serif;
+    display: block;
 }
 
 .hex-id {
     color: #999;
     font-size: 10px;
     font-weight: bold;
+    display: block;
 }
 
 .header-symbol {
@@ -437,18 +443,20 @@ canvas {
 
 /* Highlighting for converted result column */
 .hex-table tbody td.converted-result {
-    background-color: #fff3cd;
+    background-color: #fff3cd !important;
+    padding: 8px 6px !important;
 }
 
 .hex-table tbody td.converted-result:hover {
-    background-color: #ffe69c;
+    background-color: #ffe69c !important;
 }
 
 /* Highlighting for final result column */
 .hex-table tbody td.final-result {
-    background-color: #d1ecf1;
+    background-color: #d1ecf1 !important;
+    padding: 8px 6px !important;
 }
 
 .hex-table tbody td.final-result:hover {
-    background-color: #bee5eb;
+    background-color: #bee5eb !important;
 }
