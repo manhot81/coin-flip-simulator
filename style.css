@@ -316,10 +316,13 @@ canvas {
 .table-container {
     overflow-x: auto;
     margin-top: 20px;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
 }
 
 .hex-table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -626,10 +629,12 @@ canvas {
         overflow-x: auto;
         margin-top: 15px;
         -webkit-overflow-scrolling: touch;
+        width: 100%;
     }
 
     .hex-table {
         font-size: 12px;
+        min-width: 500px;
     }
 
     .hex-table th,
@@ -661,13 +666,13 @@ canvas {
     }
 
     .header-symbol {
-        font-size: 10px;
-        letter-spacing: 1px;
+        font-size: 11px;
+        letter-spacing: 0px;
     }
 
     .row-header-symbol {
-        font-size: 10px;
-        letter-spacing: 1px;
+        font-size: 11px;
+        letter-spacing: 0px;
     }
 
     .modal-content {
@@ -753,8 +758,15 @@ canvas {
         padding: 12px;
     }
 
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+    }
+
     .hex-table {
         font-size: 11px;
+        min-width: 420px;
     }
 
     .hex-table th,
@@ -782,8 +794,8 @@ canvas {
 
     .header-symbol,
     .row-header-symbol {
-        font-size: 9px;
-        letter-spacing: 0.5px;
+        font-size: 10px;
+        letter-spacing: 0px;
     }
 
     #modalTitle {
