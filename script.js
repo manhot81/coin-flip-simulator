@@ -178,23 +178,9 @@ function lookupResultNumber(upperBinary, lowerBinary) {
 }
 
 // Generate and display the hex dictionary lookup table
-function generateHexTable(convertedResults = null, finalResults = null) {
+function generateHexTable() {
     const tableElement = document.getElementById('hexTable');
     tableElement.innerHTML = ''; // Clear previous table
-    
-    // Calculate which cells to highlight based on results
-    let convertedHexIds = [];
-    let finalHexIds = [];
-    
-    if (convertedResults) {
-        const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
-        convertedHexIds.push(lookupResultNumber(convertedBinaryGroups.upper, convertedBinaryGroups.lower));
-    }
-    
-    if (finalResults) {
-        const finalBinaryGroups = calculateBinaryGroups(finalResults);
-        finalHexIds.push(lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower));
-    }
     
     // Create trigram index maps from embedded data
     const trigramByBinary = {};
@@ -287,16 +273,6 @@ function generateHexTable(convertedResults = null, finalResults = null) {
                 <div class="hex-symbol">${hexagram.symbol}</div>
                 <div class="hex-id">${hexagram.id}</div>
             `;
-            
-            // Highlight converted result cell
-            if (convertedHexIds.includes(hexagramId)) {
-                cell.classList.add('converted-result');
-            }
-            
-            // Highlight final result cell
-            if (finalHexIds.includes(hexagramId)) {
-                cell.classList.add('final-result');
-            }
             
             // Add click event to open modal
             cell.addEventListener('click', function() {
@@ -399,9 +375,6 @@ function displayResults(flips) {
     
     // Display binary conversion summary for both columns
     displayBinarySummary(convertedResults, finalResults);
-    
-    // Return the results for highlighting
-    return { convertedResults, finalResults };
 }
 
 // Create or update the bar chart
@@ -495,9 +468,9 @@ function handleFlipButton() {
     const flips = runSimulation();
     const counts = countResults(flips);
     
-    const { convertedResults, finalResults } = displayResults(flips);
+    displayResults(flips);
     displayChart(counts);
-    generateHexTable(convertedResults, finalResults);
+    generateHexTable();
     
     // Show table section
     document.getElementById('tableSection').style.display = 'block';

@@ -297,6 +297,7 @@ canvas {
     text-align: center;
     font-weight: bold;
     border: 1px solid #e0e0e0;
+    vertical-align: middle;
 }
 
 .hex-table th {
@@ -311,6 +312,10 @@ canvas {
     background: white;
     color: #333;
     font-size: 14px;
+    min-height: 70px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .hex-table tbody tr:hover td {
@@ -324,35 +329,37 @@ canvas {
 }
 
 .hex-cell {
-    padding: 8px 6px !important;
+    padding: 12px 15px !important;
     font-size: 11px !important;
-    line-height: 1.4;
+    line-height: 1.5;
     text-align: center;
     vertical-align: middle;
-    height: 100%;
-    display: table-cell !important;
 }
 
 .hex-name {
     font-weight: bold;
     color: #764ba2;
-    margin-bottom: 3px;
+    margin: 0;
     display: block;
+    line-height: 1.3;
 }
 
 .hex-symbol {
     font-size: 10px;
     color: #666;
-    margin-bottom: 2px;
+    margin: 3px 0;
     font-family: Arial, sans-serif;
     display: block;
+    line-height: 1.3;
 }
 
 .hex-id {
     color: #999;
     font-size: 10px;
     font-weight: bold;
+    margin: 0;
     display: block;
+    line-height: 1.3;
 }
 
 .header-symbol {
@@ -430,33 +437,4 @@ canvas {
     font-size: 16px;
     white-space: pre-wrap;
     word-wrap: break-word;
-}
-
-.hex-table tbody td {
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.hex-table tbody td:hover {
-    background-color: #e8eef7;
-}
-
-/* Highlighting for converted result column */
-.hex-table tbody td.converted-result {
-    background-color: #fff3cd !important;
-    padding: 8px 6px !important;
-}
-
-.hex-table tbody td.converted-result:hover {
-    background-color: #ffe69c !important;
-}
-
-/* Highlighting for final result column */
-.hex-table tbody td.final-result {
-    background-color: #d1ecf1 !important;
-    padding: 8px 6px !important;
-}
-
-.hex-table tbody td.final-result:hover {
-    background-color: #bee5eb !important;
 }
