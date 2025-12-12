@@ -929,20 +929,47 @@ function displayChart(counts) {
 function openHexagramModal(hexagramId, hexagramName) {
     const hexagram = ichingData.hexagrams.find(h => h.id === hexagramId);
     if (!hexagram) return;
+
+    reverseHexDict = Object.fromEntries(
+        Object.entries(hexDict).map(([key, value]) => [value, key])
+    );      
     
     document.getElementById('modalTitle').textContent = `${hexagram.name} (${hexagram.pinyin}) - #${hexagramId}`;
+
+    modelSymbol = document.getElementById('modalSymbol');
+    modelSymbol.innerHTML = '';
+    reverseHexDict[hexagramId].split('').forEach((result, index) => {
+        const lineDiv = document.createElement('div');
+        lineDiv.className = 'line-symbol';
+        lineoutput = result === '1' ? '\u2501'.repeat(3) : '\u2013 \u2013';
+        lineResult = result === '1' ? '九' : '六';
+        numnberToChinese = ["初","二","三","四","五","上"];
+        
+        if (index === 5 || index === 0)
+        {
+            lineoutput += `\t${numnberToChinese[5-index]}${lineResult}`;
+        }
+        else
+        {
+            lineoutput += `\t${lineResult}${numnberToChinese[5-index]}`;            
+        }
+        lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
+        modelSymbol.appendChild(lineDiv);
+    });    
+
+    
     document.getElementById('modalBody').textContent = hexagram.ci;
     document.getElementById('modalBodyWhite').textContent = hexagram.ci_white;
     modalBodyExplain = document.getElementById('modalBodyExplain');
     modalBodyExplain.innerHTML = "";
     //document.getElementById('modalBodyExplain').innerHTML = hexagram.yao_white;
-    hexagram.yao_white.forEach(line => {
+    [...hexagram.yao_white].reverse().forEach(line => {
         const p = document.createElement("p"); // create a <p> for each line
         p.textContent = line;
         modalBodyExplain.appendChild(p);
     });
     document.getElementById('hexagramModal').style.display = 'flex';
-    
+
 }
 
 

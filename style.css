@@ -524,6 +524,14 @@ canvas {
     padding-bottom: 10px;
 }
 
+#modal-symbol {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
+}
+
 .modal-body {
     color: #555;
     line-height: 1.8;
