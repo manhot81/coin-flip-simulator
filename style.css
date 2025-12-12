@@ -303,6 +303,8 @@ canvas {
     font-weight: bold;
     margin: 10px 0 0 0;
     cursor: pointer;
+    color: #0066cc;
+    text-decoration: underline; 
 }
 
 .summary-column:nth-child(1) .result-number {
