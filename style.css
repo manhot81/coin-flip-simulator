@@ -358,6 +358,15 @@ canvas {
     border: 2px solid #17a2b8;
 }
 
+.explanation-symbol-label {
+    font-size: 20px;
+    color: #070707;
+    margin-top: 12px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 #explanation-symbol {
     color: #333;
     margin-bottom: 20px;
