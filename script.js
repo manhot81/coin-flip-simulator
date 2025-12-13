@@ -1799,6 +1799,7 @@ function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs
       return;
     }
     const explanationSection = document.getElementById('explanationSection');
+    const explanationText = document.getElementById('explanationText');
     
     const mainBinaryGroups = calculateBinaryGroups(mainResults);
     const finalBinaryGroups = calculateBinaryGroups(finalResults);    
@@ -1874,7 +1875,7 @@ function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs
     }
 
     //explanationSection.innerHTML = `<pre>${explanationOutput}</pre>`;
-    explanationSection.innerHTML = `<div class="explanation-text">${explanationOutput}</div>`
+    explanationText.innerHTML = `<div class="explanation-text">${explanationOutput}</div>`
     explanationSection.style.display = 'block';
 
 

@@ -203,24 +203,6 @@ canvas {
     border-radius: 8px;
 }
 
-.explanation-section {
-    margin-top: 30px;
-    padding: 20px;
-    background: #efa6a6;
-    border-radius: 8px;
-}    
-
-.explanation-text {
-  white-space: pre-wrap;       /* preserves whitespace + wraps */
-  word-wrap: break-word;       /* old but still useful */
-  overflow-wrap: anywhere;     /* modern, breaks even inside words if needed */
-  font-family: monospace;      /* optional: keeps code-like look */
-  background: #f8f8f8;
-  padding: 16px;
-  border-radius: 6px;
-  line-height: 1.5;
-}
-
 .summary-wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -331,6 +313,42 @@ canvas {
 
 .summary-column:nth-child(2) .result-number {
     color: #0c5460;
+}
+
+.explanation-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #efa6a6;
+    border-radius: 8px;
+}    
+
+.explanation-text {
+  white-space: pre-wrap;       /* preserves whitespace + wraps */
+  word-wrap: break-word;       /* old but still useful */
+  overflow-wrap: anywhere;     /* modern, breaks even inside words if needed */
+  font-family: monospace;      /* optional: keeps code-like look */
+  background: #f8f8f8;
+  padding: 16px;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+.explanation-text-subgroup {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.explanation-symbol-subgroup {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#explanation-symbol {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 10px;
 }
 
 .table-section {
