@@ -1276,7 +1276,7 @@ ichingData.trigrams.forEach(trigram => {
 });
 
 // Convert flip result to display string based on rules
-function convertResult(flip) {
+function convertFlipResult(flip) {
     const headsCount = flip.filter(coin => coin === 'H').length;
     const tailsCount = flip.filter(coin => coin === 'T').length;
 
@@ -1298,19 +1298,19 @@ function convertResult(flip) {
     }
 }
 
-// Transform the converted result to final result based on rules
-function transformResult(convertedResult) {
+// Transform the main result to final result based on rules
+function transformResult(mainResult) {
     // Rule 1: If the result is ---O, change it to - -
-    if (convertedResult === '---O') {
+    if (mainResult === '---O') {
         return '- -';
     }
     // Rule 2: If the result is - -X, change it to ---
-    else if (convertedResult === '- -X') {
+    else if (mainResult === '- -X') {
         return '---';
     }
     // Rule 3: Otherwise, keep the same
     else {
-        return convertedResult;
+        return mainResult;
     }
 }
 
@@ -1339,11 +1339,11 @@ function binaryToSymbol(binaryString) {
 }
 
 // Calculate binary conversion for upper and lower groups
-function calculateBinaryGroups(finalResults) {
+function calculateBinaryGroups(binaryResults) {
     // Upper 3 results (indices 5, 4, 3) - from flip 6, 5, 4
-    const upperGroup = [finalResults[5], finalResults[4], finalResults[3]];
+    const upperGroup = [binaryResults[5], binaryResults[4], binaryResults[3]];
     // Lower 3 results (indices 2, 1, 0) - from flip 3, 2, 1
-    const lowerGroup = [finalResults[2], finalResults[1], finalResults[0]];
+    const lowerGroup = [binaryResults[2], binaryResults[1], binaryResults[0]];
 
     const upperBinary = upperGroup.map(result => resultToBinary(result)).join('');
     const lowerBinary = lowerGroup.map(result => resultToBinary(result)).join('');
@@ -1358,7 +1358,7 @@ function lookupResultNumber(upperBinary, lowerBinary) {
 }
 
 // Generate and display the hex dictionary lookup table
-function generateHexTable(convertedBinary = null, finalBinary = null) {
+function generateHexTable(mainBinary = null, finalBinary = null) {
     const tableElement = document.getElementById('hexTable');
     tableElement.innerHTML = ''; // Clear previous table
     
@@ -1451,9 +1451,9 @@ function generateHexTable(convertedBinary = null, finalBinary = null) {
                 openHexagramModal(hexagramId, hexagram.name);
             });
             
-            // Add highlighting if this cell matches converted or final result
-            if (convertedBinary && binaryValue === convertedBinary) {
-                cell.classList.add('converted-result');
+            // Add highlighting if this cell matches main or final result
+            if (mainBinary && binaryValue === mainBinary) {
+                cell.classList.add('main-result');
             }
             if (finalBinary && binaryValue === finalBinary) {
                 cell.classList.add('final-result');
@@ -1508,20 +1508,20 @@ function countResults(flips) {
 function displayResults(flips) {
     const resultsSection = document.getElementById('results');
     const flipsContainer = document.getElementById('flipsContainer');
-    const convertedContainer = document.getElementById('convertedContainer');
-    const finalContainer = document.getElementById('finalContainer');
+    const mainResultContainer = document.getElementById('mainResultContainer');
+    const finalResultContainer = document.getElementById('finalResultContainer');
     
     // Clear previous results
     flipsContainer.innerHTML = '';
-    convertedContainer.innerHTML = '';
-    finalContainer.innerHTML = '';
+    mainResultContainer.innerHTML = '';
+    finalResultContainer.innerHTML = '';
     
-    const convertedResults = []; // Store converted results
+    const mainResults = []; // Store main results
     const finalResults = []; // Store final results
-    const changedResults = [];
+    const changedIndexs = [];
     
     // Store reference for highlighting
-    window.highlightedBinaries = { converted: null, final: null };
+    window.highlightedBinaries = { main: null, final: null };
     
     // Display each flip result
     flips.forEach((flip, index) => {
@@ -1539,39 +1539,39 @@ function displayResults(flips) {
         flipsContainer.appendChild(flipDiv);
 
         // Middle column: Converted Results
-        const convertedResult = convertResult(flip);
-        convertedResults.push(convertedResult);
-        if (convertedResult === '---O' || convertedResult === '- -X') {
-            changedResults.push(index);
+        const mainResult = convertFlipResult(flip);
+        mainResults.push(mainResult);
+        if (mainResult === '---O' || mainResult === '- -X') {
+            changedIndexs.push(index);
         }
-        const convertedDiv = document.createElement('div');
-        convertedDiv.className = 'converted-result';
-        convertedDiv.textContent = convertedResult;
-        convertedContainer.appendChild(convertedDiv);
+        const mainDiv = document.createElement('div');
+        mainDiv.className = 'main-result';
+        mainDiv.textContent = mainResult;
+        mainResultContainer.appendChild(mainDiv);
 
         // Right column: Final Results
-        const finalResult = transformResult(convertedResult);
+        const finalResult = transformResult(mainResult);
         finalResults.push(finalResult);
         const finalDiv = document.createElement('div');
         finalDiv.className = 'final-result';
         finalDiv.textContent = finalResult;
-        finalContainer.appendChild(finalDiv);
+        finalResultContainer.appendChild(finalDiv);
     });
     
     resultsSection.style.display = 'block';
     
     // Calculate and store binary values for highlighting
-    const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
+    const mainBinaryGroups = calculateBinaryGroups(mainResults);
     const finalBinaryGroups = calculateBinaryGroups(finalResults);
-    window.highlightedBinaries.converted = convertedBinaryGroups.upper + convertedBinaryGroups.lower;
+    window.highlightedBinaries.main = mainBinaryGroups.upper + mainBinaryGroups.lower;
     window.highlightedBinaries.final = finalBinaryGroups.upper + finalBinaryGroups.lower;
     
     // Display binary conversion summary for both columns
-    displayBinarySummary(convertedResults, finalResults);
+    displayBinarySummary(mainResults, finalResults);
     
     // Return the binary values for table highlighting
     return {
-        convertedBinary: window.highlightedBinaries.converted,
+        mainBinary: window.highlightedBinaries.main,
         finalBinary: window.highlightedBinaries.final
     };
 }
@@ -1694,17 +1694,17 @@ function openHexagramModal(hexagramId, hexagramName) {
 
 
 // Display binary conversion summary
-function displayBinarySummary(convertedResults, finalResults) {
+function displayBinarySummary(mainResults, finalResults) {
     const summarySection = document.getElementById('summarySection');
-    const convertedUpperBinaryDiv = document.getElementById('convertedUpperBinary');
-    const convertedUpperBinarySymbolDiv = document.getElementById('convertedUpperBinarySymbol');
-    const convertedLowerBinaryDiv = document.getElementById('convertedLowerBinary');
-    const convertedLowerBinarySymbolDiv = document.getElementById('convertedLowerBinarySymbol');
-    const convertedCombinedDiv = document.getElementById('convertedCombined');
-    const convertedResultNumberDiv = document.getElementById('convertedResultNumber');
-    const convertedResultNameDiv = document.getElementById('convertedResultName');
-    const convertedResultShortNameDiv = document.getElementById('convertedResultShortName');
-    const convertedResultSymbolDiv = document.getElementById('convertedResultSymbol');
+    const mainUpperBinaryDiv = document.getElementById('mainUpperBinary');
+    const mainUpperBinarySymbolDiv = document.getElementById('mainUpperBinarySymbol');
+    const mainLowerBinaryDiv = document.getElementById('mainLowerBinary');
+    const mainLowerBinarySymbolDiv = document.getElementById('mainLowerBinarySymbol');
+    const mainCombinedDiv = document.getElementById('mainCombined');
+    const mainResultNumberDiv = document.getElementById('mainResultNumber');
+    const mainResultNameDiv = document.getElementById('mainResultName');
+    const mainResultShortNameDiv = document.getElementById('mainResultShortName');
+    const mainResultSymbolDiv = document.getElementById('mainResultSymbol');
     const finalUpperBinaryDiv = document.getElementById('finalUpperBinary');
     const finalUpperBinarySymbolDiv = document.getElementById('finalUpperBinarySymbol');
     const finalLowerBinaryDiv = document.getElementById('finalLowerBinary');
@@ -1715,33 +1715,33 @@ function displayBinarySummary(convertedResults, finalResults) {
     const finalResultShortNameDiv = document.getElementById('finalResultShortName');
     const finalResultSymbolDiv = document.getElementById('finalResultSymbol');
     
-    const convertedBinaryGroups = calculateBinaryGroups(convertedResults);
+    const mainBinaryGroups = calculateBinaryGroups(mainResults);
     const finalBinaryGroups = calculateBinaryGroups(finalResults);
     
 
-    // Display converted results
-    trigram = trigramByBinary[convertedBinaryGroups.upper];    
-    convertedUpperBinaryDiv.textContent = convertedBinaryGroups.upper;
-    convertedUpperBinarySymbolDiv.textContent = trigram.code;
+    // Display main results
+    trigram = trigramByBinary[mainBinaryGroups.upper];    
+    mainUpperBinaryDiv.textContent = mainBinaryGroups.upper;
+    mainUpperBinarySymbolDiv.textContent = trigram.code;
 
-    trigram = trigramByBinary[convertedBinaryGroups.lower];        
-    convertedLowerBinaryDiv.textContent = convertedBinaryGroups.lower;
-    convertedLowerBinarySymbolDiv.textContent = trigram.code;
+    trigram = trigramByBinary[mainBinaryGroups.lower];        
+    mainLowerBinaryDiv.textContent = mainBinaryGroups.lower;
+    mainLowerBinarySymbolDiv.textContent = trigram.code;
 
-    const convertedCombined = convertedBinaryGroups.upper + convertedBinaryGroups.lower;
-    convertedCombinedDiv.textContent = convertedCombined;
-    const convertedResultNumber = lookupResultNumber(convertedBinaryGroups.upper, convertedBinaryGroups.lower);
-    convertedResultNumberDiv.textContent = convertedResultNumber;
-    convertedResultNameDiv.textContent = hexagramById[convertedResultNumber].symbol;
-    convertedResultNameDiv.addEventListener('click', function() {
-        openHexagramModal(convertedResultNumber, hexagramById[convertedResultNumber].name);
+    const mainCombined = mainBinaryGroups.upper + mainBinaryGroups.lower;
+    mainCombinedDiv.textContent = mainCombined;
+    const mainResultNumber = lookupResultNumber(mainBinaryGroups.upper, mainBinaryGroups.lower);
+    mainResultNumberDiv.textContent = mainResultNumber;
+    mainResultNameDiv.textContent = hexagramById[mainResultNumber].symbol;
+    mainResultNameDiv.addEventListener('click', function() {
+        openHexagramModal(mainResultNumber, hexagramById[mainResultNumber].name);
     });            
-    convertedResultShortNameDiv.textContent = hexagramById[convertedResultNumber].short;
-    convertedResultShortNameDiv.addEventListener('click', function() {
-        openHexagramModal(convertedResultNumber, hexagramById[convertedResultNumber].name);
+    mainResultShortNameDiv.textContent = hexagramById[mainResultNumber].short;
+    mainResultShortNameDiv.addEventListener('click', function() {
+        openHexagramModal(mainResultNumber, hexagramById[mainResultNumber].name);
     });            
             
-    convertedResultSymbolDiv.textContent = String.fromCodePoint(0x4DC0 + convertedResultNumber - 1);
+    mainResultSymbolDiv.textContent = String.fromCodePoint(0x4DC0 + mainResultNumber - 1);
     
     // Display final results
     trigram = trigramByBinary[finalBinaryGroups.upper];        
@@ -1776,9 +1776,9 @@ function handleFlipButton() {
     const flips = runSimulation();
     const counts = countResults(flips);
     
-    const { convertedBinary, finalBinary } = displayResults(flips);
+    const { mainBinary, finalBinary } = displayResults(flips);
     displayChart(counts);
-    generateHexTable(convertedBinary, finalBinary);
+    generateHexTable(mainBinary, finalBinary);
     
     // Show table section
     document.getElementById('tableSection').style.display = 'block';

@@ -94,14 +94,14 @@ h2 {
     margin-bottom: 20px;
 }
 
-.converted-container {
+.main-result-container {
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.final-container {
+.final-result-container {
     display: flex;
     flex-direction: column-reverse;
     gap: 15px;
@@ -151,7 +151,7 @@ h2 {
     background: #FF9800;
 }
 
-.converted-result {
+.main-result {
     background: #fff3cd;
     padding: 12px 15px;
     border-radius: 8px;
@@ -436,8 +436,8 @@ canvas {
     color: #667eea;
 }
 
-/* Highlighting for converted and final results */
-.hex-table tbody td.converted-result {
+/* Highlighting for main and final results */
+.hex-table tbody td.main-result {
     background: #fff3cd !important;
     border-left: 4px solid #ffc107 !important;
     padding: 12px 15px !important;
@@ -446,14 +446,14 @@ canvas {
     display: table-cell !important;
 }
 
-.hex-table tbody td.converted-result .hex-name,
-.hex-table tbody td.converted-result .hex-symbol,
-.hex-table tbody td.converted-result .hex-id {
+.hex-table tbody td.main-result .hex-name,
+.hex-table tbody td.main-result .hex-symbol,
+.hex-table tbody td.main-result .hex-id {
     display: block !important;
     line-height: 1.3 !important;
 }
 
-.hex-table tbody td.converted-result:hover {
+.hex-table tbody td.main-result:hover {
     background: #ffe69c !important;
 }
 
@@ -602,7 +602,7 @@ canvas {
         margin-bottom: 3px;
     }
 
-    .converted-result,
+    .main-result,
     .final-result {
         min-height: 50px;
         padding: 10px 12px;
@@ -756,7 +756,7 @@ canvas {
         font-size: 9px;
     }
 
-    .converted-result,
+    .main-result,
     .final-result {
         min-height: 45px;
         padding: 8px 10px;
