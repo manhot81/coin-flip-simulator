@@ -305,7 +305,7 @@ const ichingData = {
       "ci": "亨，君子有終。",
       "ci_white": "亨通，君子有善終。",
       "yao_white": [
-        "初六：謙謙君子，用涉大川，吉。。（白話：謙虛再謙虛的君子，敢渡大河，吉。）",
+        "初六：謙謙君子，用涉大川，吉。（白話：謙虛再謙虛的君子，敢渡大河，吉。）",
         "六二：鳴謙，貞吉。（白話：謙虛名聲傳出，守正吉。）",
         "九三：勞謙君子，有終吉。（白話：勞苦而謙虛的君子，有善終，吉利。）",
         "六四：無不利，撝謙也。（白話：無所不利，發揚謙虛。）",
@@ -1046,7 +1046,7 @@ const ichingData = {
       "ci": "征凶，无攸利。",
       "ci_white": "征伐凶，無所利。",
       "yao_white": [
-        "初九：歸妹以娣，跛能履，征吉。。（白話：嫁女以妹妹為陪嫁，跛子能走，前進吉。）",
+        "初九：歸妹以娣，跛能履，征吉。（白話：嫁女以妹妹為陪嫁，跛子能走，前進吉。）",
         "九二：眇能視，利幽人之貞。（白話：瞎子能看，利於隱士守正。）",
         "六三：歸妹以須，反歸以娣。（白話：嫁女以侍女，反被以妹妹嫁回。）",
         "九四：歸妹愆期，遲歸有時。（白話：嫁女錯過時機，遲嫁有時機。）",
@@ -1088,7 +1088,7 @@ const ichingData = {
         "六二：旅即次，懷其資，得童僕貞。（白話：旅途中停留，懷藏財資，得童僕守正。）",
         "九三：旅焚其次，喪其童僕，貞厲。（白話：旅途中燒毀住處，喪失童僕，守正有危險。）",
         "九四：旅于處，得其資斧，我心不快。（白話：旅途中安處，得財資斧，心裡不快。）",
-        "六五：射雉一矢亡，終以譽命。。（白話：射雉失去一箭，最後得稱譽命令。）",
+        "六五：射雉一矢亡，終以譽命。（白話：射雉失去一箭，最後得稱譽命令。）",
         "上九：鳥焚其巢，旅人先笑後號咷，喪牛于易，凶。（白話：鳥巢被燒，旅人先笑後哭，於邊界喪牛，大凶。）"
       ]
     },
@@ -1525,9 +1525,9 @@ function displayResults(flips) {
     mainResultContainer.innerHTML = '';
     finalResultContainer.innerHTML = '';
     
-    const mainResults = []; // Store main results
-    const finalResults = []; // Store final results
-    const changedIndexs = [];
+    const mainResults = []; // Store main results raw string 
+    const finalResults = []; // Store final results raw string
+    const changedIndexs = []; 
     const keptIndexs = [];
     
     // Store reference for highlighting
@@ -1811,12 +1811,33 @@ function getOverAllSymbolExplation(symbolNumber) {
   return explanationLines;
 }
 
-function displayExplanationSymbol(mainResultNumber, finalResultNumber, changedIndexs, keptIndexs){
+function displayExplanationSymbol(mainResults, finalResults, changedIndexs, keptIndexs){
   const mainExplanationDiv = document.getElementById('mainExplanationSymbol');  
   const finalExplanationDiv = document.getElementById('finalExplanationSymbol');
 
+  mainExplanationDiv.innerHTML = "";
+  finalExplanationDiv.innerHTML = "";
 
-  
+  [...mainResults].reverse().forEach((result, index) => {
+      const lineDiv = document.createElement('div');
+      lineDiv.className = 'line-symbol';
+      let lineoutput = "";
+      console.log("Result To Binary:", index, result);
+      lineoutput = result;
+      lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
+      lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
+      mainExplanationDiv.appendChild(lineDiv);
+  });  
+
+  [...finalResults].reverse().forEach((result, index) => {
+      const lineDiv = document.createElement('div');
+      lineDiv.className = 'line-symbol';
+      let lineoutput = "";
+      lineoutput = getLineSymbolFromBinary(resultToBinary(result));
+      lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
+      lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
+      finalExplanationDiv.appendChild(lineDiv);
+  });  
 
 }
 
@@ -1827,6 +1848,9 @@ function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs
   if (changedIndexs.length + keptIndexs.length !== 6) {
     return;
   }
+
+  displayExplanationSymbol(mainResults, finalResults, changedIndexs, keptIndexs);
+
   const explanationSection = document.getElementById('explanationSection');
   const explanationText = document.getElementById('explanationText');
   
