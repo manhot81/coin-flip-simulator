@@ -1519,6 +1519,7 @@ function displayResults(flips) {
     const mainResults = []; // Store main results
     const finalResults = []; // Store final results
     const changedIndexs = [];
+    const keptIndexs = [];
     
     // Store reference for highlighting
     window.highlightedBinaries = { main: null, final: null };
@@ -1543,6 +1544,10 @@ function displayResults(flips) {
         mainResults.push(mainResult);
         if (mainResult === '---O' || mainResult === '- -X') {
             changedIndexs.push(index);
+            console.log("Change Index:", index);
+        }
+        else {
+            keptIndexs.push(index);
         }
         const mainDiv = document.createElement('div');
         mainDiv.className = 'main-result';
@@ -1568,6 +1573,7 @@ function displayResults(flips) {
     
     // Display binary conversion summary for both columns
     displayBinarySummary(mainResults, finalResults);
+    displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs);
     
     // Return the binary values for table highlighting
     return {
@@ -1769,6 +1775,116 @@ function displayBinarySummary(mainResults, finalResults) {
     finalResultSymbolDiv.textContent = String.fromCodePoint(0x4DC0 + finalResultNumber - 1);
     
     summarySection.style.display = 'block';
+}
+
+function getOverAllSymbolExplation(symbolNumber) {
+  explanationLines = [];
+  hexagram = ichingData.hexagrams.find(h => h.id === symbolNumber);
+
+  if (!hexagram) {
+    return;
+  }  
+  explanationLines.push(`【${hexagram.name} (${hexagram.pinyin}) - #${hexagram.id}】卦辭：${hexagram.ci} 白話：${hexagram.ci_white}`);
+   [...hexagram.yao_white].forEach(line => {
+        explanationLines.push(line)        
+    });
+
+
+  return explanationLines;
+}
+
+//Display Explanation Section
+function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs) {
+
+    if (changedIndexs.length + keptIndexs.length !== 6) {
+      return;
+    }
+    const explanationSection = document.getElementById('explanationSection');
+    
+    const mainBinaryGroups = calculateBinaryGroups(mainResults);
+    const finalBinaryGroups = calculateBinaryGroups(finalResults);    
+
+    // Display main results
+    const mainResultNumber = lookupResultNumber(mainBinaryGroups.upper, mainBinaryGroups.lower);
+    const finalResultNumber = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
+    
+     const mainHexagram = ichingData.hexagrams.find(h => h.id === mainResultNumber);
+     const finalHexagram = ichingData.hexagrams.find(h => h.id === finalResultNumber);
+
+    let explanationOutput = ""
+    const mainExplanations = getOverAllSymbolExplation(mainResultNumber);
+    const finalExplanations = getOverAllSymbolExplation(finalResultNumber);
+
+    if (changedIndexs.length === 0) {
+        explanationOutput = "六爻都未變：以本卦卦辭為斷。";  
+        //explanationOutput += `<br><br>本卦【${mainHexagram.name} (${mainHexagram.pinyin}) - #${mainHexagram.id}】卦辭：${mainHexagram.ci} 白話：${mainHexagram.ci_white}`;
+        explanationOutput += `<br><br> ${mainExplanations[0]}`        
+    }
+    else if (changedIndexs.length === 1) {
+        explanationOutput = "一爻變，以本卦變爻為斷。";  
+        const changedIndex = changedIndexs[0] + 1;
+
+        console.log("1st Changed Index:",changedIndexs[0], changedIndex);
+        explanationOutput += `<br><br> 本卦${mainExplanations[0]}`        
+        if (changedIndex >= 1 && changedIndex <= mainExplanations.length) {
+          explanationOutput += `<br><br> ${mainExplanations[changedIndex]}`;
+        }
+    }
+    else if (changedIndexs.length === 2) {
+        console.log("2 change");
+        explanationOutput = "二爻變，以本卦變爻的上爻為斷。變爻的下爻可做為參考。";  
+        const changedIndex1 = changedIndexs[0] + 1;
+        const changedIndex2 = changedIndexs[1] + 1;
+        explanationOutput += `<br><br> 本卦${mainExplanations[0]}`
+        if (changedIndex2 >= 1 && changedIndex2 <= mainExplanations.length) {
+          explanationOutput += `<br><br> ${mainExplanations[changedIndex2]}`;
+        }
+        if (changedIndex1 >= 1 && changedIndex1 <= mainExplanations.length) {
+          explanationOutput += `<br><br> ${mainExplanations[changedIndex1]}`;
+        }
+    }
+    else if (changedIndexs.length === 3) {
+        explanationOutput = "三爻變，以變卦的卦辭為斷；本卦卦辭可當參考。";  
+        explanationOutput += `<br><br> 變卦${finalExplanations[0]}`;
+        explanationOutput += `<br><br> 本卦${mainExplanations[0]}`;
+    }
+    else if (changedIndexs.length === 4) {
+        explanationOutput = "四爻變，以變卦不變的二爻中的下爻為斷，上爻可做為參考。";  
+        explanationOutput += `<br><br> 變卦${finalExplanations[0]}`;
+        const keptIndex1 = keptIndexs[0] + 1;
+        const keptIndex2 = keptIndexs[1] + 1;
+        if (keptIndex1 >= 1 && keptIndex1 <= finalExplanations.length) {
+          explanationOutput += `<br><br> ${finalExplanations[keptIndex1]}`;
+        }
+
+        if (keptIndex2 >= 1 && keptIndex2 <= finalExplanations.length) {
+          explanationOutput += `<br><br> ${finalExplanations[keptIndex2]}`;
+        }
+    }
+    else if (changedIndexs.length === 5) {
+        explanationOutput = "五爻變，以變卦不變的那一爻為斷";  
+        explanationOutput += `<br><br> 變卦${finalExplanations[0]}`;
+        const keptIndex = keptIndexs[0] + 1;
+        if (keptIndex >= 1 && keptIndex <= finalExplanations.length) {
+          explanationOutput += `<br><br> ${finalExplanations[keptIndex]}`;
+        }
+    }
+    else if (changedIndexs.length === 6) {
+        explanationOutput = "六爻皆變。"; 
+        explanationOutput += `<br><br> 變卦${finalExplanations[0]}`;
+    }
+
+    //explanationSection.innerHTML = `<pre>${explanationOutput}</pre>`;
+    explanationSection.innerHTML = `<div class="explanation-text">${explanationOutput}</div>`
+    explanationSection.style.display = 'block';
+
+
+// 六爻都未變：以本卦卦辭為斷。
+// 一爻變，以本卦變爻為斷。
+// 二爻變，以本卦變爻的上爻為斷。變爻的下爻可做為參考。
+// 三爻變，以變卦的卦辭為斷；本卦卦辭可當參考。
+// 四爻變，以變卦不變的二爻中的下爻為斷，上爻可做為參考。
+// 五爻變，以變卦不變的那一爻為斷
 }
 
 // Main function to handle button click
