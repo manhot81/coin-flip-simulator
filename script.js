@@ -1257,6 +1257,59 @@ const ichingData = {
   ]
 }
 
+
+ichingData.trigrams.forEach(trigram => {
+  let baseTrigrams = trigram.binary + trigram.binary;
+  let hexagram = ichingData.hexagrams.find((h => h.id === hexDict[baseTrigrams]));  
+  const baseIndex = 5;
+
+  //1. Base
+  hexagram.selfIndex = baseIndex;
+  hexagram.otherIndex = (baseIndex + 3) % 6;
+  console.log("base", baseTrigrams);
+
+
+  
+
+  //Change 1 - 5
+  let changeTrigrams = baseTrigrams;
+  let binaryArray = baseTrigrams.split(""); 
+
+  for (let i = 1; i <= 5; i++) {
+    binaryArray[5 - i + 1] = binaryArray[5 - i + 1] === '0' ? '1' : '0';
+    changeTrigrams = binaryArray.join("");
+    hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));    
+    hexagram.selfIndex = (baseIndex + i) % 6;
+    hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;     
+    console.log("change", changeTrigrams);
+  }
+
+  //Change 6
+  binaryArray[2] = binaryArray[2] === '0' ? '1' : '0';
+  changeTrigrams = binaryArray.join("");
+    
+  hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));  
+  hexagram.selfIndex = 3;
+  hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;
+  console.log("change", changeTrigrams);
+
+
+  //change 7
+  for (let i = 3; i < 6; i++) {
+    binaryArray[i] = binaryArray[i] === '0' ? '1' : '0';
+    changeTrigrams = binaryArray.join("");
+  }
+  hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));  
+  hexagram.selfIndex = 2;
+  hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;
+  console.log("change", changeTrigrams);
+
+
+  console.log(ichingData.hexagrams);
+
+});
+
+
 // Create hexagram index
 const hexagramById = {};
 ichingData.hexagrams.forEach(hex => {
@@ -1273,6 +1326,7 @@ ichingData.trigrams.forEach(trigram => {
     trigramById[trigram.id] = trigram;
     trigramByChar[trigram.code] = trigram;
 });
+
 
 reverseHexDict = Object.fromEntries(
     Object.entries(hexDict).map(([key, value]) => [value, key])
@@ -1818,15 +1872,30 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   mainExplanationDiv.innerHTML = "";
   finalExplanationDiv.innerHTML = "";
 
+  const mainBinaryGroups = calculateBinaryGroups(mainResults);
+  const finalBinaryGroups = calculateBinaryGroups(finalResults);
+
+  const mainResultNumber = lookupResultNumber(mainBinaryGroups.upper, mainBinaryGroups.lower);
+  const finalResultNumber = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
+  
+
   [...mainResults].reverse().forEach((result, index) => {
       const lineDiv = document.createElement('div');
       lineDiv.className = 'line-symbol';
       let lineoutput = "";
       console.log("Result To Binary:", index, result);
       lineoutput = result;
-      lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
+      lineoutput += getLineNameFromBinary(resultToBinary(result), index);
+      
+      if (5 - index === hexagramById[mainResultNumber].selfIndex) {
+          lineoutput += " ← 世爻";
+      }
+      else if (5 - index === hexagramById[mainResultNumber].otherIndex) {
+          lineoutput += " ← 應爻";          
+      }
       lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
       mainExplanationDiv.appendChild(lineDiv);
+      console.log("Line Output:", index, result);
   });  
 
   [...finalResults].reverse().forEach((result, index) => {
@@ -1835,6 +1904,14 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       let lineoutput = "";
       lineoutput = getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
+
+      if (5 - index === hexagramById[finalResultNumber].selfIndex) {
+          lineoutput += " ← 世爻";
+      }
+      else if (5 - index === hexagramById[finalResultNumber].otherIndex) {
+          lineoutput += " ← 應爻";          
+      }
+      
       lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
       finalExplanationDiv.appendChild(lineDiv);
   });  
