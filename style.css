@@ -345,7 +345,7 @@ canvas {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-top: 20px;
-    background: #efa6a6;;
+    background: #efa6a6;;    
 }
 
 .explanation-symbol-column:nth-child(1) {
@@ -373,6 +373,7 @@ canvas {
     font-size: 1.8em;
     border-bottom: 2px solid #667eea;
     padding-bottom: 10px;
+    text-align: left;
 }
 
 .table-section {

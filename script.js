@@ -1879,12 +1879,14 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   const finalResultNumber = lookupResultNumber(finalBinaryGroups.upper, finalBinaryGroups.lower);
   
 
+  let lineoutput = "";      
+  const mainLineDiv = document.createElement('div');
+  mainLineDiv.className = 'line-symbol';
+      
   [...mainResults].reverse().forEach((result, index) => {
-      const lineDiv = document.createElement('div');
-      lineDiv.className = 'line-symbol';
-      let lineoutput = "";
+      
       console.log("Result To Binary:", index, result);
-      lineoutput = result;
+      lineoutput += result;
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);
       
       if (5 - index === hexagramById[mainResultNumber].selfIndex) {
@@ -1893,16 +1895,21 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       else if (5 - index === hexagramById[mainResultNumber].otherIndex) {
           lineoutput += " ← 應爻";          
       }
-      lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
-      mainExplanationDiv.appendChild(lineDiv);
-      console.log("Line Output:", index, result);
-  });  
+      lineoutput += "\n";
+      //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
+      
+  }); 
+  mainLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
+  mainExplanationDiv.appendChild(mainLineDiv);
+    //  console.log("Line Output:", index, result); 
 
-  [...finalResults].reverse().forEach((result, index) => {
-      const lineDiv = document.createElement('div');
-      lineDiv.className = 'line-symbol';
-      let lineoutput = "";
-      lineoutput = getLineSymbolFromBinary(resultToBinary(result));
+  lineoutput = "";
+  const finalLineDiv = document.createElement('div');
+  finalLineDiv.className = 'line-symbol';
+  [...finalResults].reverse().forEach((result, index) => {     
+     
+      
+      lineoutput += getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
 
       if (5 - index === hexagramById[finalResultNumber].selfIndex) {
@@ -1910,11 +1917,11 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       }
       else if (5 - index === hexagramById[finalResultNumber].otherIndex) {
           lineoutput += " ← 應爻";          
-      }
-      
-      lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
-      finalExplanationDiv.appendChild(lineDiv);
-  });  
+      }      
+      lineoutput += "\n";
+  }); 
+  finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
+  finalExplanationDiv.appendChild(finalLineDiv); 
 
 }
 
