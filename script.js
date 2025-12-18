@@ -1,6 +1,14 @@
 // Initialize chart variable
 let statisticsChart = null;
 
+const YIN_SYMBOL = '\u2013 \u2013'; // '– –' (broken line)
+const YANG_SYMBOL  = '\u2501\u2501\u2501'; // '━━━' (solid line)
+const YIN_MOVING_SYMBOL = YIN_SYMBOL + 'X'; // '– –X' (broken line with X)
+const YANG_MOVING_SYMBOL = YANG_SYMBOL + 'O'; // '━━━O' (solid line with O)
+
+const YIN = 0;
+const YANG = 1;
+const diZhiChinese = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
 // Hex dictionary for result lookup
 const hexDict = {
     '000000': 2, '100000': 23, '010000': 8, '110000': 20, '001000': 16, '101000': 35,
@@ -16,16 +24,18 @@ const hexDict = {
     '001111': 34, '101111': 14, '011111': 43, '111111': 1
 };
 
+
+
 const ichingData = {
   "trigrams": [
-    {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000", "code": "\u2637"},
-    {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001", "code": "\u2633"},
-    {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010", "code": "\u2635"},
-    {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011", "code": "\u2631"},
-    {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100", "code": "\u2636"},
-    {"id": 5, "name": "離", "pinyin": "Li", "binary": "101", "code": "\u2632"},
-    {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110", "code": "\u2634"},
-    {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111", "code": "\u2630"}
+    {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000", "code": "\u2637", "diZhiBase": 7, "YinYang": YIN},
+    {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001", "code": "\u2633", "diZhiBase": 0, "YinYang": YANG},
+    {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010", "code": "\u2635", "diZhiBase": 2, "YinYang": YANG},
+    {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011", "code": "\u2631", "diZhiBase": 5, "YinYang": YIN},
+    {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100", "code": "\u2636", "diZhiBase": 4, "YinYang": YANG},
+    {"id": 5, "name": "離", "pinyin": "Li", "binary": "101", "code": "\u2632", "diZhiBase": 3, "YinYang": YIN},
+    {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110", "code": "\u2634", "diZhiBase": 1, "YinYang": YIN},
+    {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111", "code": "\u2630", "diZhiBase": 0, "YinYang": YANG}
   ],
   "hexagrams": [
     {
@@ -1332,10 +1342,7 @@ reverseHexDict = Object.fromEntries(
     Object.entries(hexDict).map(([key, value]) => [value, key])
 );     
 
-const YIN = '\u2013 \u2013'; // '– –' (broken line)
-const YANG  = '\u2501\u2501\u2501'; // '━━━' (solid line)
-const YIN_MOVING = YIN + 'X'; // '– –X' (broken line with X)
-const YANG_MOVING = YANG + 'O'; // '━━━O' (solid line with O)
+
 
 
 // Convert flip result to display string based on rules
@@ -1345,31 +1352,31 @@ function convertFlipResult(flip) {
 
     // Rule a: 2 tail 1 head -> ---
     if (tailsCount === 2 && headsCount === 1) {
-        return YANG;
+        return YANG_SYMBOL;
     }
     // Rule b: 2 head 1 tail -> - -
     else if (headsCount === 2 && tailsCount === 1) {
-        return YIN;        
+        return YIN_SYMBOL;        
     }
     // Rule c: 3 head -> ---O
     else if (headsCount === 3) {
-        return YANG_MOVING
+        return YANG_MOVING_SYMBOL;
     }
     // Rule d: 3 tail -> - -X
     else if (tailsCount === 3) {
-        return YIN_MOVING
+        return YIN_MOVING_SYMBOL;
     }
 }
 
 // Transform the main result to final result based on rules
 function transformResult(mainResult) {
     // Rule 1: If the result is ---O, change it to - -
-    if (mainResult === YANG_MOVING) {
-        return YIN;
+    if (mainResult === YANG_MOVING_SYMBOL) {
+        return YIN_SYMBOL;
     }
     // Rule 2: If the result is - -X, change it to ---
-    else if (mainResult === YIN_MOVING) {
-        return YANG;
+    else if (mainResult === YIN_MOVING_SYMBOL) {
+        return YANG_SYMBOL;
     }
     // Rule 3: Otherwise, keep the same
     else {
@@ -1380,11 +1387,11 @@ function transformResult(mainResult) {
 // Convert a single result to binary (0 or 1)
 function resultToBinary(result) {
     // --- or ---O = 1
-    if (result === YANG || result === YANG_MOVING) {
+    if (result === YANG_SYMBOL || result === YANG_MOVING_SYMBOL ) {
         return '1';
     }
     // - - or - -X = 0
-    else if (result === YIN || result === YIN_MOVING) {
+    else if (result === YIN_SYMBOL || result === YIN_MOVING_SYMBOL) {
         return '0';
     }
     return '0'; // default
@@ -1396,7 +1403,7 @@ function binaryToSymbol(binaryString) {
     // Using Unicode box drawing characters for I Ching symbols
     let symbols = [];
     for (let i = 0; i < binaryString.length; i++) {
-        symbols.push(binaryString[i] === '1' ? YANG : YIN);
+        symbols.push(binaryString[i] === '1' ? YANG_SYMBOL : YIN_SYMBOL);
     }
     return symbols;
 }
@@ -1605,7 +1612,7 @@ function displayResults(flips) {
         // Middle column: Converted Results
         const mainResult = convertFlipResult(flip);
         mainResults.push(mainResult);
-        if (mainResult === YANG_MOVING || mainResult === YIN_MOVING) {
+        if (mainResult === YANG_MOVING_SYMBOL || mainResult === YIN_MOVING_SYMBOL) {
             changedIndexs.push(index);
             console.log("Change Index:", index);
         }
@@ -1719,8 +1726,30 @@ function getLineNameFromBinary(bitString, index)
 function getLineSymbolFromBinary(bitString)
 {
     let lineSymbol = "";
-    lineSymbol = bitString === '1' ? YANG : YIN;
+    lineSymbol = bitString === '1' ? YANG_SYMBOL : YIN_SYMBOL;
     return lineSymbol;
+}
+
+function getDiZhiListFromBinary(binaryString)
+{
+    let diZhiList = [];
+    const trigram = ichingData.trigrams.find((t => t.binary === binaryString));
+
+    for (let i = 0; i < 6; i++)   
+    {
+      if (trigram.YinYang == YANG) {        
+        index = trigram.diZhiBase + (i * 2);
+        index = index > 11 ? index - 12 : index;        
+      }
+      else {
+        index = trigram.diZhiBase - (i * 2);
+        index = index < 0 ? index + 12 : index; 
+      }      
+      diZhiList.push(diZhiChinese[index]);
+    }    
+    
+    console.log(diZhiList);
+    return diZhiList;
 }
 
 // function getLineSymbolAndNameFromBinary(hexagramId) {
@@ -1882,12 +1911,23 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   let lineoutput = "";      
   const mainLineDiv = document.createElement('div');
   mainLineDiv.className = 'line-symbol';
+  const mainUpperDiZi = getDiZhiListFromBinary(mainBinaryGroups.upper).slice(3,6).reverse();
+  const mainLowerDiZi = getDiZhiListFromBinary(mainBinaryGroups.lower).slice(0,3).reverse();
+  const mainDiZi = mainUpperDiZi.concat(mainLowerDiZi);
+
+  const finalUpperDiZi = getDiZhiListFromBinary(finalBinaryGroups.upper).slice(3,6).reverse();
+  const finalLowerDiZi = getDiZhiListFromBinary(finalBinaryGroups.lower).slice(0,3).reverse();
+  const finalDiZi = finalUpperDiZi.concat(finalLowerDiZi); 
+
+
       
   [...mainResults].reverse().forEach((result, index) => {
       
       console.log("Result To Binary:", index, result);
       lineoutput += result;
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);
+
+      lineoutput += ` ${mainDiZi[index]}`;
       
       if (5 - index === hexagramById[mainResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
@@ -1911,6 +1951,8 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       
       lineoutput += getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
+
+       lineoutput += ` ${finalDiZi[index]}`;
 
       if (5 - index === hexagramById[finalResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
@@ -2026,6 +2068,8 @@ function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs
 
 // Main function to handle button click
 function handleFlipButton() {
+
+    console.log("Flip button clicked");
     const flips = runSimulation();
     const counts = countResults(flips);
     
