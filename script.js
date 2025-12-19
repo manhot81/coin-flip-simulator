@@ -1935,6 +1935,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   const finalLowerDiZi = getDiZhiListFromBinary(finalBinaryGroups.lower).slice(0,3).reverse();
   const finalDiZi = finalUpperDiZi.concat(finalLowerDiZi); 
 
+  
 
   let mainTableData = [];
   let mainOtherList = [];
@@ -1979,7 +1980,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const maintableHeader = document.createElement("tr");
-  maintableHeader.innerHTML = `<th>符號</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  maintableHeader.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>世應</th>`;
   mainTableBody.appendChild(maintableHeader);
   
 
@@ -2036,7 +2037,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const tr = document.createElement("tr");
-  tr.innerHTML = `<th>符號</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  tr.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>世應</th>`;
   finalTableBody.appendChild(tr);
 
   finalTableData.forEach(row => {
