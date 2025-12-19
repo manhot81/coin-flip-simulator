@@ -345,12 +345,13 @@ canvas {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     margin-top: 20px;
-    background: #efa6a6;;    
+    background: #efa6a6;;   
+    align-items: center;     
 }
 
 .explanation-symbol-column:nth-child(1) {
     background: #fff3cd;
-    border: 2px solid #ffc107;
+    border: 2px solid #ffc107;    
 }
 
 .explanation-symbol-column:nth-child(2) {
@@ -374,6 +375,15 @@ canvas {
     border-bottom: 2px solid #667eea;
     padding-bottom: 10px;
     text-align: left;
+}
+
+.explanation-symbol-table { 
+    border-collapse: collapse; margin-top: 10px; 
+    margin: 0 auto;
+
+} 
+.explanation-symbol-table td { 
+    border: 1px solid #333; padding: 6px 12px; font-family: monospace; 
 }
 
 .table-section {

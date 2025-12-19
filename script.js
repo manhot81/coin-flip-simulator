@@ -1920,30 +1920,56 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   const finalDiZi = finalUpperDiZi.concat(finalLowerDiZi); 
 
 
-      
+  let mainTableData = [];
+  let mainOtherList = [];
   [...mainResults].reverse().forEach((result, index) => {
       
       console.log("Result To Binary:", index, result);
-      lineoutput += result;
+      lineoutput += getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);
 
       lineoutput += ` ${mainDiZi[index]}`;
       
       if (5 - index === hexagramById[mainResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
+          mainOtherList.push(" ← 世爻");
       }
       else if (5 - index === hexagramById[mainResultNumber].otherIndex) {
-          lineoutput += " ← 應爻";          
+          lineoutput += " ← 應爻";   
+          mainOtherList.push(" ← 應爻");       
       }
+      else {
+          mainOtherList.push("");
+      }
+
       lineoutput += "\n";
-      //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;
-      
+      //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;      
+      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZi[index], mainOtherList[index]]);
   }); 
-  mainLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
-  mainExplanationDiv.appendChild(mainLineDiv);
+
+  //console.log("Table Data:", tableData); 
+
+  // mainLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
+  // mainExplanationDiv.appendChild(mainLineDiv);
     //  console.log("Line Output:", index, result); 
 
+  const mainTableBody = document.getElementById("mainExplanationSymbolTable");
+  mainTableBody.innerHTML = ""; // clear old rows
+
+  mainTableData.forEach(row => {
+    const tr = document.createElement("tr");
+    row.forEach(cell => {
+      const td = document.createElement("td");
+      td.textContent = cell;
+      tr.appendChild(td);
+    });
+    mainTableBody.appendChild(tr);
+  });
+
+
   lineoutput = "";
+  let finalTableData = [];
+  let finalOtherList = [];
   const finalLineDiv = document.createElement('div');
   finalLineDiv.className = 'line-symbol';
   [...finalResults].reverse().forEach((result, index) => {     
@@ -1956,14 +1982,34 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
       if (5 - index === hexagramById[finalResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
+            finalOtherList.push(" ← 世爻"); 
       }
       else if (5 - index === hexagramById[finalResultNumber].otherIndex) {
-          lineoutput += " ← 應爻";          
+          lineoutput += " ← 應爻";         
+          finalOtherList.push(" ← 應爻"); 
       }      
+      else {
+          finalOtherList.push("");
+      }
       lineoutput += "\n";
+      finalTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), finalDiZi[index], finalOtherList[index]]);
   }); 
-  finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
-  finalExplanationDiv.appendChild(finalLineDiv); 
+
+  // finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
+  // finalExplanationDiv.appendChild(finalLineDiv); 
+
+  const finalTableBody = document.getElementById("finalExplanationSymbolTable");
+  finalTableBody.innerHTML = ""; // clear old rows
+
+  finalTableData.forEach(row => {
+    const tr = document.createElement("tr");
+    row.forEach(cell => {
+      const td = document.createElement("td");
+      td.textContent = cell;
+      tr.appendChild(td);
+    });
+    finalTableBody.appendChild(tr);
+  });
 
 }
 
