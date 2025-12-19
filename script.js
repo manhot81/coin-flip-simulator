@@ -1748,7 +1748,8 @@ function getLineSymbolFromBinary(bitString)
 
 function getDiZhiListFromBinary(binaryString)
 {
-    let diZhiList = [];
+    let diZhiChineseList = [];
+    let diZhiElementList = [];
     const trigram = ichingData.trigrams.find((t => t.binary === binaryString));
 
     for (let i = 0; i < 6; i++)   
@@ -1761,13 +1762,19 @@ function getDiZhiListFromBinary(binaryString)
         index = trigram.diZhiBase - (i * 2);
         index = index < 0 ? index + 12 : index; 
       }      
-      diZhiList.push(diZhiChinese[index] + diZhiElement[index]);
+      //diZhiList.push(diZhiChinese[index] + diZhiElement[index]);
+      diZhiChineseList.push(diZhiChinese[index]);
+      diZhiElementList.push(diZhiElement[index]);
     }    
     
-    console.log(diZhiList);
-    return diZhiList;
+    //console.log(diZhiList);
+    return [diZhiChineseList, diZhiElementList];
 }
 
+function getFamilyGroup(baseElement, elementList) {
+
+  
+}
 // function getLineSymbolAndNameFromBinary(hexagramId) {
 
 //   let symbolLines = [];
@@ -1910,6 +1917,7 @@ function getOverAllSymbolExplation(symbolNumber) {
   return explanationLines;
 }
 
+
 function displayExplanationSymbol(mainResults, finalResults, changedIndexs, keptIndexs){
   const mainExplanationDiv = document.getElementById('mainExplanationSymbol');  
   const finalExplanationDiv = document.getElementById('finalExplanationSymbol');
@@ -1927,15 +1935,27 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   let lineoutput = "";      
   const mainLineDiv = document.createElement('div');
   mainLineDiv.className = 'line-symbol';
-  const mainUpperDiZi = getDiZhiListFromBinary(mainBinaryGroups.upper).slice(3,6).reverse();
-  const mainLowerDiZi = getDiZhiListFromBinary(mainBinaryGroups.lower).slice(0,3).reverse();
-  const mainDiZi = mainUpperDiZi.concat(mainLowerDiZi);
+  let [mainUpperDiZiChinese, mainUpperDiZiElement] = getDiZhiListFromBinary(mainBinaryGroups.upper);
+  let [mainLowerDiZiChinese, mainLowerDiZiElement] = getDiZhiListFromBinary(mainBinaryGroups.lower);
+  mainUpperDiZiChinese = mainUpperDiZiChinese.slice(3,6).reverse();
+  mainLowerDiZiChinese = mainLowerDiZiChinese.slice(0,3).reverse();  
+  mainUpperDiZiElement = mainUpperDiZiElement.slice(3,6).reverse();
+  mainLowerDiZiElement = mainLowerDiZiElement.slice(0,3).reverse();  
 
-  const finalUpperDiZi = getDiZhiListFromBinary(finalBinaryGroups.upper).slice(3,6).reverse();
-  const finalLowerDiZi = getDiZhiListFromBinary(finalBinaryGroups.lower).slice(0,3).reverse();
-  const finalDiZi = finalUpperDiZi.concat(finalLowerDiZi); 
+  const mainDiZiChinese = mainUpperDiZiChinese.concat(mainLowerDiZiChinese);
+  const mainDiZiElement = mainUpperDiZiElement.concat(mainLowerDiZiElement);
 
-  
+  let [finalUpperDiZiChinese, finalUpperDiZiElement] = getDiZhiListFromBinary(finalBinaryGroups.upper);
+  let [finalLowerDiZiChinese, finalLowerDiZiElement] = getDiZhiListFromBinary(finalBinaryGroups.lower);
+  finalUpperDiZiChinese = finalUpperDiZiChinese.slice(3,6).reverse();
+  finalLowerDiZiChinese = finalLowerDiZiChinese.slice(0,3).reverse();
+  finalUpperDiZiElement = finalUpperDiZiElement.slice(3,6).reverse();
+  finalLowerDiZiElement = finalLowerDiZiElement.slice(0,3).reverse();
+
+  const finalDiZiChinese = finalUpperDiZiChinese.concat(finalLowerDiZiChinese); 
+  const finalDiZiElement = finalUpperDiZiElement.concat(finalLowerDiZiElement); 
+
+
 
   let mainTableData = [];
   let mainOtherList = [];
@@ -1945,7 +1965,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       lineoutput += getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);
 
-      lineoutput += ` ${mainDiZi[index]}`;
+      lineoutput += ` ${mainDiZiChinese[index]}${mainDiZiElement[index]}`;
       
       if (5 - index === hexagramById[mainResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
@@ -1961,7 +1981,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
       lineoutput += "\n";
       //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;      
-      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZi[index], mainOtherList[index]]);
+      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZiChinese[index] + mainDiZiElement[index], mainOtherList[index]]);
   }); 
 
   //console.log("Table Data:", tableData); 
@@ -2006,7 +2026,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
       lineoutput += getLineSymbolFromBinary(resultToBinary(result));
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);       
 
-       lineoutput += ` ${finalDiZi[index]}`;
+      lineoutput += ` ${finalDiZiChinese[index]}${finalDiZiElement[index]}`;
 
       if (5 - index === hexagramById[finalResultNumber].selfIndex) {
           lineoutput += " ← 世爻";
@@ -2020,7 +2040,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
           finalOtherList.push("");
       }
       lineoutput += "\n";
-      finalTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), finalDiZi[index], finalOtherList[index]]);
+      finalTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), finalDiZiChinese[index] + finalDiZiElement[index], finalOtherList[index]]);
   }); 
 
   // finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
