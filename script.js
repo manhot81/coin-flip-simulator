@@ -9,6 +9,17 @@ const YANG_MOVING_SYMBOL = YANG_SYMBOL + 'O'; // '━━━O' (solid line with O
 const YIN = 0;
 const YANG = 1;
 const diZhiChinese = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const diZhiElement = ["水","土","木","木","土","火","火","土","金","金","土","水"];
+const elementRelation = {
+  '水': {'generate': '木', 'overcome': '火', 'generate_by': '金', 'overcome_by': '土'},
+  '木': {'generate': '火', 'overcome': '土', 'generate_by': '水', 'overcome_by': '金'},
+  '火': {'generate': '土', 'overcome': '金', 'generate_by': '木', 'overcome_by': '水'},
+  '土': {'generate': '金', 'overcome': '水', 'generate_by': '火', 'overcome_by': '木'},
+  '金': {'generate': '水', 'overcome': '木', 'generate_by': '火', 'overcome_by': '土'}  
+};
+
+
+
 // Hex dictionary for result lookup
 const hexDict = {
     '000000': 2, '100000': 23, '010000': 8, '110000': 20, '001000': 16, '101000': 35,
@@ -28,14 +39,14 @@ const hexDict = {
 
 const ichingData = {
   "trigrams": [
-    {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000", "code": "\u2637", "diZhiBase": 7, "YinYang": YIN},
-    {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001", "code": "\u2633", "diZhiBase": 0, "YinYang": YANG},
-    {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010", "code": "\u2635", "diZhiBase": 2, "YinYang": YANG},
-    {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011", "code": "\u2631", "diZhiBase": 5, "YinYang": YIN},
-    {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100", "code": "\u2636", "diZhiBase": 4, "YinYang": YANG},
-    {"id": 5, "name": "離", "pinyin": "Li", "binary": "101", "code": "\u2632", "diZhiBase": 3, "YinYang": YIN},
-    {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110", "code": "\u2634", "diZhiBase": 1, "YinYang": YIN},
-    {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111", "code": "\u2630", "diZhiBase": 0, "YinYang": YANG}
+    {"id": 0, "name": "坤", "pinyin": "Kun", "binary": "000", "code": "\u2637", "diZhiBase": 7, "YinYang": YIN, "element": "土"},
+    {"id": 1, "name": "震", "pinyin": "Zhen", "binary": "001", "code": "\u2633", "diZhiBase": 0, "YinYang": YANG, "element": "木"},
+    {"id": 2, "name": "坎", "pinyin": "Kan", "binary": "010", "code": "\u2635", "diZhiBase": 2, "YinYang": YANG, "element": "水"},
+    {"id": 3, "name": "兌", "pinyin": "Dui", "binary": "011", "code": "\u2631", "diZhiBase": 5, "YinYang": YIN, "element": "金"},
+    {"id": 4, "name": "艮", "pinyin": "Gen", "binary": "100", "code": "\u2636", "diZhiBase": 4, "YinYang": YANG, "element": "土"},
+    {"id": 5, "name": "離", "pinyin": "Li", "binary": "101", "code": "\u2632", "diZhiBase": 3, "YinYang": YIN, "element": "火"},
+    {"id": 6, "name": "巽", "pinyin": "Xun", "binary": "110", "code": "\u2634", "diZhiBase": 1, "YinYang": YIN, "element": "木"},
+    {"id": 7, "name": "乾", "pinyin": "Qian", "binary": "111", "code": "\u2630", "diZhiBase": 0, "YinYang": YANG, "element": "金"}
   ],
   "hexagrams": [
     {
@@ -1276,10 +1287,9 @@ ichingData.trigrams.forEach(trigram => {
   //1. Base
   hexagram.selfIndex = baseIndex;
   hexagram.otherIndex = (baseIndex + 3) % 6;
+  hexagram.baseElement = trigram.element;
+  hexagram.baseTrigrams = trigram.name;
   console.log("base", baseTrigrams);
-
-
-  
 
   //Change 1 - 5
   let changeTrigrams = baseTrigrams;
@@ -1291,6 +1301,8 @@ ichingData.trigrams.forEach(trigram => {
     hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));    
     hexagram.selfIndex = (baseIndex + i) % 6;
     hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;     
+    hexagram.baseElement = trigram.element;
+    hexagram.baseTrigrams = trigram.name;
     console.log("change", changeTrigrams);
   }
 
@@ -1301,6 +1313,8 @@ ichingData.trigrams.forEach(trigram => {
   hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));  
   hexagram.selfIndex = 3;
   hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;
+  hexagram.baseElement = trigram.element;
+  hexagram.baseTrigrams = trigram.name;
   console.log("change", changeTrigrams);
 
 
@@ -1312,6 +1326,8 @@ ichingData.trigrams.forEach(trigram => {
   hexagram = ichingData.hexagrams.find((h => h.id === hexDict[changeTrigrams]));  
   hexagram.selfIndex = 2;
   hexagram.otherIndex = (hexagram.selfIndex + 3) % 6;
+  hexagram.baseElement = trigram.element;
+  hexagram.baseTrigrams = trigram.name;
   console.log("change", changeTrigrams);
 
 
@@ -1745,7 +1761,7 @@ function getDiZhiListFromBinary(binaryString)
         index = trigram.diZhiBase - (i * 2);
         index = index < 0 ? index + 12 : index; 
       }      
-      diZhiList.push(diZhiChinese[index]);
+      diZhiList.push(diZhiChinese[index] + diZhiElement[index]);
     }    
     
     console.log(diZhiList);
@@ -1956,6 +1972,17 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   const mainTableBody = document.getElementById("mainExplanationSymbolTable");
   mainTableBody.innerHTML = ""; // clear old rows
 
+
+  const mainSymbolBase = document.createElement("tr");
+  mainSymbolBase.innerHTML = hexagramById[mainResultNumber].baseTrigrams + "宮\t" + `${hexagramById[mainResultNumber].baseElement}`;
+  mainTableBody.appendChild(mainSymbolBase);
+
+
+  const maintableHeader = document.createElement("tr");
+  maintableHeader.innerHTML = `<th>符號</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  mainTableBody.appendChild(maintableHeader);
+  
+
   mainTableData.forEach(row => {
     const tr = document.createElement("tr");
     row.forEach(cell => {
@@ -1998,8 +2025,19 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   // finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
   // finalExplanationDiv.appendChild(finalLineDiv); 
 
+
+
   const finalTableBody = document.getElementById("finalExplanationSymbolTable");
   finalTableBody.innerHTML = ""; // clear old rows
+
+  const finalSymbolBase = document.createElement("tr");
+  finalSymbolBase.innerHTML = hexagramById[finalResultNumber].baseTrigrams + "宮\t" + `${hexagramById[finalResultNumber].baseElement}`;
+  finalTableBody.appendChild(finalSymbolBase);
+
+
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<th>符號</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  finalTableBody.appendChild(tr);
 
   finalTableData.forEach(row => {
     const tr = document.createElement("tr");
