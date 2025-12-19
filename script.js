@@ -1773,7 +1773,27 @@ function getDiZhiListFromBinary(binaryString)
 
 function getFamilyGroup(baseElement, elementList) {
 
-  
+  let familyGroups = [];
+  elementList.forEach((element, index) => {
+    console.log("Base Element:", baseElement, "Element:", element);
+    if (baseElement === element) {
+      familyGroups.push("兄弟");
+    }
+    else if (elementRelation[element].generate === baseElement) {
+      familyGroups.push("父母");
+    }
+    else if (elementRelation[baseElement].generate === element) {
+      familyGroups.push("子孫");
+    }
+    else if (elementRelation[element].overcome === baseElement) {
+      familyGroups.push("官鬼");
+    }
+    else if (elementRelation[baseElement].overcome === element) {
+      familyGroups.push("妻財");
+    }
+  });
+
+  return familyGroups;
 }
 // function getLineSymbolAndNameFromBinary(hexagramId) {
 
@@ -1955,6 +1975,8 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   const finalDiZiChinese = finalUpperDiZiChinese.concat(finalLowerDiZiChinese); 
   const finalDiZiElement = finalUpperDiZiElement.concat(finalLowerDiZiElement); 
 
+  const mainFamilyGroup = getFamilyGroup(hexagramById[mainResultNumber].baseElement, mainDiZiElement);
+  const finalFamilyGroup = getFamilyGroup(hexagramById[mainResultNumber].baseElement, finalDiZiElement);
 
 
   let mainTableData = [];
@@ -1981,7 +2003,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
       lineoutput += "\n";
       //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;      
-      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZiChinese[index] + mainDiZiElement[index], mainOtherList[index]]);
+      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZiChinese[index] + mainDiZiElement[index], mainFamilyGroup[index], mainOtherList[index]]);
   }); 
 
   //console.log("Table Data:", tableData); 
@@ -2000,7 +2022,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const maintableHeader = document.createElement("tr");
-  maintableHeader.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  maintableHeader.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>六親</th><th>世應</th>`;
   mainTableBody.appendChild(maintableHeader);
   
 
@@ -2040,7 +2062,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
           finalOtherList.push("");
       }
       lineoutput += "\n";
-      finalTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), finalDiZiChinese[index] + finalDiZiElement[index], finalOtherList[index]]);
+      finalTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), finalDiZiChinese[index] + finalDiZiElement[index], finalFamilyGroup[index], finalOtherList[index]]);
   }); 
 
   // finalLineDiv.innerHTML = `<pre style="display:inline-block; text-align:left; font-family:monospace;">${lineoutput}</pre>`;      
@@ -2057,7 +2079,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const tr = document.createElement("tr");
-  tr.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>世應</th>`;
+  tr.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>六親</th><th>世應</th>`;
   finalTableBody.appendChild(tr);
 
   finalTableData.forEach(row => {
