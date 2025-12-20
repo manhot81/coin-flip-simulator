@@ -2022,7 +2022,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const maintableHeader = document.createElement("tr");
-  maintableHeader.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>六親</th><th>世應</th>`;
+  maintableHeader.innerHTML = `<th>卦爻</th><th>爻位</th><th>地支</th><th>六親</th><th>世應</th>`;
   mainTableBody.appendChild(maintableHeader);
   
 
@@ -2079,7 +2079,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
 
   const tr = document.createElement("tr");
-  tr.innerHTML = `<th>卦爻</th><th>名稱</th><th>地支</th><th>六親</th><th>世應</th>`;
+  tr.innerHTML = `<th>卦爻</th><th>爻位</th><th>地支</th><th>六親</th><th>世應</th>`;
   finalTableBody.appendChild(tr);
 
   finalTableData.forEach(row => {
@@ -2179,6 +2179,13 @@ function displayExplanation(mainResults, finalResults, changedIndexs, keptIndexs
       explanationOutput = "六爻皆變。"; 
       explanationOutput += `<br><br> 變卦${finalExplanations[0]}`;
   }
+
+
+  explanationOutput += `<br><br>父母：生我者（長輩、師長、文書、房產、學業、責任）。`;
+  explanationOutput += `<br>兄弟：與我同等或比和者（同輩、朋友、同事、競爭者）。`;
+  explanationOutput += `<br>子孫：我所生的（子女、晚輩、下屬、技能、喜樂）。`;
+  explanationOutput += `<br>妻財：我所克的（錢財、妻子、食物、所追求之物）。`;
+  explanationOutput += `<br>官鬼：克我者（上級、官府、丈夫、疾病、禍患、事業）`;  
 
   //explanationSection.innerHTML = `<pre>${explanationOutput}</pre>`;
   explanationText.innerHTML = `<div class="explanation-text">${explanationOutput}</div>`
