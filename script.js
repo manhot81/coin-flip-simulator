@@ -1984,7 +1984,8 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
   [...mainResults].reverse().forEach((result, index) => {
       
       console.log("Result To Binary:", index, result);
-      lineoutput += getLineSymbolFromBinary(resultToBinary(result));
+      //lineoutput += getLineSymbolFromBinary(resultToBinary(result));
+      lineoutput =  result;
       lineoutput += getLineNameFromBinary(resultToBinary(result), index);
 
       lineoutput += ` ${mainDiZiChinese[index]}${mainDiZiElement[index]}`;
@@ -2003,7 +2004,7 @@ function displayExplanationSymbol(mainResults, finalResults, changedIndexs, kept
 
       lineoutput += "\n";
       //lineDiv.innerHTML = `<pre>${lineoutput}</pre>`;      
-      mainTableData.push([getLineSymbolFromBinary(resultToBinary(result)), getLineNameFromBinary(resultToBinary(result), index), mainDiZiChinese[index] + mainDiZiElement[index], mainFamilyGroup[index], mainOtherList[index]]);
+      mainTableData.push([result, getLineNameFromBinary(resultToBinary(result), index), mainDiZiChinese[index] + mainDiZiElement[index], mainFamilyGroup[index], mainOtherList[index]]);
   }); 
 
   //console.log("Table Data:", tableData); 
