@@ -19,7 +19,7 @@ body {
 }
 
 .container {
-    background: white;
+    background: rgb(255, 255, 255);
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     padding: 40px;
@@ -640,7 +640,8 @@ canvas {
     
     .container {
         width: 100%;
-        max-width: none;
+        max-width: 100%;;
         padding: 20px;
+        overflow-x: auto;
     }
 }
